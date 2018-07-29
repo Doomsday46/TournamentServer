@@ -1,10 +1,10 @@
-package com.doomsday.tournamentserver.domain;
+package com.doomsday.tournamentserver.domain.sceme;
 
 import com.doomsday.tournamentserver.domain.pair.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OlympicScheme implements Scheme{
+public class OlympicScheme implements Scheme {
     private int countRounds;
 
 

@@ -1,7 +1,7 @@
 package com.doomsday.tournamentserver.domain.scheme;
 
-import com.doomsday.tournamentserver.domain.OlympicScheme;
-import com.doomsday.tournamentserver.domain.Scheme;
+import com.doomsday.tournamentserver.domain.sceme.OlympicScheme;
+import com.doomsday.tournamentserver.domain.sceme.Scheme;
 import com.doomsday.tournamentserver.domain.pair.Pair;
 import org.junit.Before;
 import org.junit.Test;
