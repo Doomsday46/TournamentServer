@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
-public class DomainDateService {
+public class DomainDateService implements DateService{
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private TimeSetting timeSettings;
@@ -14,13 +14,13 @@ public class DomainDateService {
     public DomainDateService()
     {
     }
-
+    @Override
     public void setTimeSetting(LocalDateTime startDate, TimeSetting timeSettings){
         if (startDate == null) throw new NullPointerException();
         this.startDate = startDate;
         this.timeSettings = timeSettings;
     }
-
+    @Override
     public LocalDateTime getNextDate()
     {
         LocalDateTime currentDate = LocalDateTime.now();
@@ -42,23 +42,23 @@ public class DomainDateService {
         }
         return currentDate;
     }
-
+    @Override
     public LocalDateTime getStartDate() {
         return startDate;
     }
-
+    @Override
     public Integer getAllowedHourStart() {
         return timeSettings.getAllowedHourStart();
     }
-
+    @Override
     public Integer getAllowedHourEnd() {
         return timeSettings.getAllowedHourEnd();
     }
-
+    @Override
     public LocalDateTime getEndDate() {
         return endDate;
     }
-
+    @Override
     public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }

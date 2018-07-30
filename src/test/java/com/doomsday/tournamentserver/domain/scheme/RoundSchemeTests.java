@@ -1,6 +1,5 @@
 package com.doomsday.tournamentserver.domain.scheme;
 
-import com.doomsday.tournamentserver.domain.sceme.RoundScheme;
 import com.doomsday.tournamentserver.domain.pair.Pair;
 import org.junit.Before;
 import org.junit.Test;

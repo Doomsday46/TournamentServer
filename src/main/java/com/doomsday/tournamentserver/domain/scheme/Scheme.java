@@ -1,4 +1,4 @@
-package com.doomsday.tournamentserver.domain.sceme;
+package com.doomsday.tournamentserver.domain.scheme;
 
 import com.doomsday.tournamentserver.domain.pair.Pair;
 
