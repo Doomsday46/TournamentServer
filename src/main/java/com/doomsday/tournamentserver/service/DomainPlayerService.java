@@ -56,6 +56,7 @@ public class DomainPlayerService implements PlayerService{
     {
         return new ArrayList<>(this.playersNumbersMap.keySet());
     }
+
     @Override
     public Player getPlayerByNumber(Integer playerNumber)
     {
@@ -63,7 +64,7 @@ public class DomainPlayerService implements PlayerService{
         if (!(playersNumbersMap.containsValue(playerNumber))) throw new FoundObjectException("Can't find specified number");
         for (Player player: this.playersNumbersMap.keySet())
         {
-            if (this.playersNumbersMap.get(player) == playerNumber)
+            if (this.playersNumbersMap.get(player).equals(playerNumber))
                 return player;
         }
         return null;

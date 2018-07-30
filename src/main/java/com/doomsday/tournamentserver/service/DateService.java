@@ -1,7 +1,15 @@
 package com.doomsday.tournamentserver.service;
 
-import org.springframework.stereotype.Service;
+import com.doomsday.tournamentserver.setting.TimeSetting;
 
-@Service
-public class DateService {
+import java.time.LocalDateTime;
+
+public interface DateService {
+    void setTimeSetting(LocalDateTime startDate, TimeSetting timeSettings);
+    LocalDateTime getNextDate();
+    LocalDateTime getStartDate();
+    Integer getAllowedHourStart();
+    Integer getAllowedHourEnd();
+    LocalDateTime getEndDate();
+    void setEndDate(LocalDateTime endDate);
 }
