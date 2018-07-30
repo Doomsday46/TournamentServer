@@ -1,6 +1,7 @@
-package com.doomsday.tournamentserver.domain.sceme;
+package com.doomsday.tournamentserver.domain.scheme;
 
 import com.doomsday.tournamentserver.domain.pair.Pair;
+import com.doomsday.tournamentserver.exception.EmptyParameter;
 
 import java.util.*;
 
@@ -35,7 +36,7 @@ public class RoundScheme implements Scheme {
         throw new Exception("Cant find specified pair");
 
     }
-    private List<List<Meet>> buildScheme(Integer playersCount) throws  Exception
+    private List<List<Meet>> buildScheme(Integer playersCount)
     {
         List<List<Meet>> toursList = new ArrayList<>();
         for (int i = 0; i < playersCount - 1; i++) {
@@ -64,7 +65,7 @@ public class RoundScheme implements Scheme {
     }
 
     @Override
-    public Pair<Integer, Integer> getNextNotPlayedPair() throws Exception {
+    public Pair<Integer, Integer> getNextNotPlayedPair(){
         for (List<Meet> tour: this.toursList)
         {
             for (Meet meet: tour) {
@@ -78,9 +79,9 @@ public class RoundScheme implements Scheme {
     }
 
     @Override
-    public List<Pair<Integer, Integer>> getAllPairsInTour(Integer tourNumber) throws Exception {
+    public List<Pair<Integer, Integer>> getAllPairsInTour(Integer tourNumber) throws IllegalArgumentException {
         if (tourNumber == null) throw new NullPointerException();
-        if (tourNumber > this.toursList.size()-1 || tourNumber < 0) throw new ArrayIndexOutOfBoundsException();
+        if (tourNumber > this.toursList.size()-1 || tourNumber < 0) throw new IllegalArgumentException();
         List<Pair<Integer, Integer>>  tour = new ArrayList<>();
         for (Meet meet: this.toursList.get(tourNumber))
         {
@@ -101,7 +102,7 @@ public class RoundScheme implements Scheme {
     }
 
     @Override
-    public void updateScheme(List<Integer> winnersList) {
+    public void updateScheme(List<Integer> winnersList) throws EmptyParameter {
 
     }
 
@@ -121,7 +122,7 @@ public class RoundScheme implements Scheme {
         return result;
     }
 
-    private Boolean checkMeet(Integer firstNumber, Integer secondNumber) throws Exception
+    private Boolean checkMeet(Integer firstNumber, Integer secondNumber)
     {
         Meet compareMeet = new Meet(firstNumber, secondNumber);
         for (List<Meet> tour: toursList)
@@ -147,31 +148,31 @@ public class RoundScheme implements Scheme {
         private Integer secondNumber;
         private Boolean assigned;
 
-        public Boolean isAssigned() {
+        Boolean isAssigned() {
             return assigned;
         }
 
-        public Meet(Integer firstNumber, Integer secondNumber) throws Exception {
+        Meet(Integer firstNumber, Integer secondNumber) throws IllegalArgumentException {
             if ((firstNumber == null) || (secondNumber == null))
                 throw new NullPointerException();
             if (firstNumber.equals(secondNumber))
-                throw new Exception("Duplicate numbers in one meet is not allowed");
+                throw new IllegalArgumentException("Duplicate numbers in one meet is not allowed");
             this.firstNumber = firstNumber;
             this.secondNumber = secondNumber;
             this.assigned = false;
         }
 
-        public Integer getFirstNumber() {
+        Integer getFirstNumber() {
             return this.firstNumber;
         }
 
-        public Integer getSecondNumber() {
+        Integer getSecondNumber() {
             return this.secondNumber;
         }
 
-        public void assign() throws Exception {
+        void assign() throws IllegalArgumentException {
             if (this.isAssigned())
-                throw new Exception("Meet is already assigned");
+                throw new IllegalArgumentException("Meet is already assigned");
             this.assigned = true;
         }
 

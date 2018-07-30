@@ -1,6 +1,10 @@
-package com.doomsday.tournamentserver.domain.sceme;
+package com.doomsday.tournamentserver.domain.scheme;
 
 import com.doomsday.tournamentserver.domain.pair.Pair;
+import com.doomsday.tournamentserver.exception.EmptyParameter;
+import jdk.nashorn.internal.ir.EmptyNode;
+import org.w3c.dom.ranges.RangeException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -229,8 +233,8 @@ public class OlympicScheme implements Scheme {
     }
 
     @Override
-    public List<Pair<Integer, Integer>> getAllPairsInTour(Integer tourNumber) throws Exception {
-        if (tourNumber < 0 || tourNumber > this.countRounds) throw new Exception("Tour out of range");
+    public List<Pair<Integer, Integer>> getAllPairsInTour(Integer tourNumber) throws IllegalArgumentException {
+        if (tourNumber < 0 || tourNumber > this.countRounds) throw new IllegalArgumentException("Tour out of range");
         List<Pair<Integer, Integer>> list = getTheRound(tourNumber);
         return list;
     }
@@ -246,9 +250,9 @@ public class OlympicScheme implements Scheme {
     }
 
     @Override
-    public void updateScheme(List<Integer> winnersList) throws Exception {
+    public void updateScheme(List<Integer> winnersList) throws EmptyParameter {
         if (winnersList == null) throw new NullPointerException();
-        if (winnersList.isEmpty()) throw new Exception("Empty list winner");
+        if (winnersList.isEmpty()) throw new EmptyParameter("Empty list winner");
         createSchedule(winnersList, this.children);
     }
 

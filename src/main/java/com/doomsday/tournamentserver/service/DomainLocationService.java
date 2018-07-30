@@ -9,7 +9,7 @@ import java.util.DuplicateFormatFlagsException;
 import java.util.List;
 
 @Service
-public class DomainLocationService {
+public class DomainLocationService implements LocationService{
 
     private List<Location> locationsList;
 
@@ -17,11 +17,11 @@ public class DomainLocationService {
     public DomainLocationService() {
         this.locationsList = new ArrayList<Location>();
     }
-
+    @Override
     public List<Location> getAllLocations() {
         return locationsList;
     }
-
+    @Override
     public void addLocation(Location newLocation) {
         if (newLocation == null) throw new NullPointerException("Null argument");
         if (this.locationsList.contains(newLocation)) {
@@ -30,7 +30,7 @@ public class DomainLocationService {
             this.locationsList.add(newLocation);
         }
     }
-
+    @Override
     public void addAllLocation(List<Location> Locations) {
         if (Locations == null) throw new NullPointerException("Null argument");
         if (this.locationsList.containsAll(Locations)) {
@@ -39,7 +39,7 @@ public class DomainLocationService {
             this.locationsList.addAll(Locations);
         }
     }
-
+    @Override
     public void removeLocation(Location existingLocation) {
         if (existingLocation == null) throw new NullPointerException("Null argument");
         if (this.locationsList.contains(existingLocation)) {
@@ -48,7 +48,7 @@ public class DomainLocationService {
             throw new DuplicateFormatFlagsException("Location doesn't exist in dispather");
         }
     }
-
+    @Override
     public void removeLocationByPlace(String locationPlace) {
         if (locationPlace == null) throw new NullPointerException("Null argument");
         for (Location location : this.locationsList) {
@@ -59,7 +59,7 @@ public class DomainLocationService {
         }
         throw new DuplicateFormatFlagsException("Location with specified place doesn't exist in dispather");
     }
-
+    @Override
     public Location getFreeLocation() {
         for (Location location : this.locationsList) {
             if (!(location.isBusy())) {
@@ -68,7 +68,7 @@ public class DomainLocationService {
         }
         return null;
     }
-
+    @Override
     public List<Location> getAllFreeLocations() {
         List<Location> freeLocationsList = new ArrayList<Location>();
         for (Location location : this.locationsList) {
@@ -78,7 +78,7 @@ public class DomainLocationService {
         }
         return freeLocationsList;
     }
-
+    @Override
     public void reserveLocation(Location location) {
         if (location == null) throw new NullPointerException("Null argument");
         if (this.locationsList.contains(location)) {
@@ -91,7 +91,7 @@ public class DomainLocationService {
             throw new FoundObjectException("Location doesn't exist in dispather");
         }
     }
-
+    @Override
     public void reserveLocationByPlace(String locationPlace) {
         if (locationPlace == null) throw new NullPointerException("Null argument");
         for (Location location : this.locationsList) {
@@ -107,7 +107,7 @@ public class DomainLocationService {
         }
         throw new FoundObjectException("Location doesn't exist in dispather");
     }
-
+    @Override
     public void freeLocation(Location location) {
         if (location == null) throw new NullPointerException("Null argument");
         if (this.locationsList.contains(location)) {
@@ -117,7 +117,7 @@ public class DomainLocationService {
             throw new FoundObjectException("Location doesn't exist in dispather");
         }
     }
-
+    @Override
     public void freeLocationByPlace(String locationPlace) {
         if (locationPlace == null) throw new NullPointerException("Null argument");
         for (Location location : this.locationsList) {
