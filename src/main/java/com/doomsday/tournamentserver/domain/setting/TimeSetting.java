@@ -1,4 +1,4 @@
-package com.doomsday.tournamentserver.setting;
+package com.doomsday.tournamentserver.domain.setting;
 
 public class TimeSetting {
     private Integer allowedHourStart;

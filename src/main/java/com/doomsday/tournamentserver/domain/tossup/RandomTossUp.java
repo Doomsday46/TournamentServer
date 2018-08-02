@@ -25,7 +25,7 @@ public class RandomTossUp implements TossUp{
         
     private List<Integer> initListNumbersPlayers(){
         List<Integer> numbers = new ArrayList<>();
-        for(int i=1; i<=countPlayers; i++)
+        for(int i = 1; i <= countPlayers; i++)
             numbers.add(i);
         return numbers;
     }

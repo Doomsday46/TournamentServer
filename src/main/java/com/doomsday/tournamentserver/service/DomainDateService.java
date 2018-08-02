@@ -1,6 +1,6 @@
 package com.doomsday.tournamentserver.service;
 
-import com.doomsday.tournamentserver.setting.TimeSetting;
+import com.doomsday.tournamentserver.domain.setting.TimeSetting;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
