@@ -9,8 +9,7 @@ public class WinnerIdentifierStrategy {
 
     public WinnerIdentifier getWinnnerIdentifier(SchemeType schemeType){
         if(schemeType == null ) throw new NullPointerException();
-        var SchemeTypeWork = schemeType;
-        switch(SchemeTypeWork){
+        switch(schemeType){
             case OLYMPIC: return new OlympicWinnerIdentifier();
             case ROUND: return new RoundWinnerIdentifier();
         }

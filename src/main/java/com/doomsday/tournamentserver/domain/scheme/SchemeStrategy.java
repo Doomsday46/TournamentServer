@@ -8,8 +8,7 @@ public class SchemeStrategy {
     public Scheme getScheme(SchemeType schemeType, Integer countPlayers){
         if(schemeType == null || countPlayers == null) throw new NullPointerException();
         if(countPlayers < 2) throw new IllegalArgumentException();
-        var SchemeTypeWork = schemeType;
-        switch(SchemeTypeWork){
+        switch(schemeType){
             case OLYMPIC: return new OlympicScheme(countPlayers);
             case ROUND: return new RoundScheme(countPlayers);
         }

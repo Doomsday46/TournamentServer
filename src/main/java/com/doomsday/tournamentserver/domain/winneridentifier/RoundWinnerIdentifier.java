@@ -51,7 +51,7 @@ public class RoundWinnerIdentifier implements WinnerIdentifier {
     }
     private Map<Player, Integer> calcBerger(){
         Map<Player, Integer> bergerMap = new HashMap<>();
-        var bergerCoeff = 0;
+        Integer bergerCoeff = 0;
         for (Player player : playerScores.keySet()) {
             bergerCoeff = caclBergerCoeffForAllMatches(player);
             bergerMap.put(player, bergerCoeff);
@@ -59,7 +59,7 @@ public class RoundWinnerIdentifier implements WinnerIdentifier {
         return bergerMap;
     }
     private Integer caclBergerCoeffForAllMatches(Player player){
-        var bergerCoeff = 0;
+        Integer bergerCoeff = 0;
         for (Match match : finishedMatches) {
             if (match.getFirstSide().equals(player) || match.getSecondSide().equals(player)) {
                 if (match.getWinner().equals(player)) {
@@ -72,7 +72,7 @@ public class RoundWinnerIdentifier implements WinnerIdentifier {
         return bergerCoeff;
     }
     private Integer calcBergerCoeff(Match match, Player player){
-        var bergerCoeff = 0;
+        Integer bergerCoeff = 0;
         if (match.getFirstSide().equals(player)) {
             bergerCoeff = bergerCoeff - playerScores.get(match.getSecondSide());
         } else {
