@@ -2,7 +2,6 @@ package com.doomsday.tournamentserver.domain.winneridentifier;
 
 import com.doomsday.tournamentserver.domain.model.Match;
 import com.doomsday.tournamentserver.domain.model.Player;
-import com.doomsday.tournamentserver.domain.pair.Pair;
 
 import java.util.*;
 import java.util.stream.Stream;
