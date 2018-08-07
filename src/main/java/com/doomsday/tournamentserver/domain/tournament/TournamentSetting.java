@@ -7,7 +7,7 @@ import com.doomsday.tournamentserver.domain.winneridentifier.WinnerIdentifier;
 
 public interface TournamentSetting {
 
-     Scheme getScheme(Integer playersCount);
+     Scheme getScheme();
      WinnerIdentifier getWinnerIdentifier();
      Integer getPrizePlacesCount();
      TimeSetting getTimeSetting();

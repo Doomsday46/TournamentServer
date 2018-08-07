@@ -22,7 +22,6 @@ public interface Tournament {
      void finishMatch(Match match, Score score) ;
      void finishMatches(List<Match> matches,List<Score> points) ;
      boolean isStart();
-     Player getThePrizePlace(int count);
+     Player getThePrizePlace(int number);
      Scheme getScheme();
-     Tournament clone();
 }

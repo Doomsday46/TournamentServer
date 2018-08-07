@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface ScheduleGenerator {
     Schedule generateSchedule();
-
     Schedule updateSchedule(List<Match> matchesList, Schedule existingSchedule);
     Schedule updateSchedule(Match match, Schedule existingSchedule);
     Scheme getScheme();

@@ -27,7 +27,7 @@ public class TournamentSettingImpl implements TournamentSetting {
     }
 
     @Override
-    public Scheme getScheme(Integer playersCount) {
+    public Scheme getScheme() {
         return getSchemeByType();
     }
 
