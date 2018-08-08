@@ -9,14 +9,14 @@ public class RoundScheme implements Scheme {
     private List<List<Meet>> toursList;
     private Integer playersCount;
 
-    public RoundScheme(Integer playersCount) throws Exception
+    public RoundScheme(Integer playersCount)
     {
-        if (playersCount == null) throw new NullPointerException();
+        if (playersCount < 2) throw new IllegalArgumentException();
         this.toursList = this.buildScheme(playersCount);
         this.playersCount = playersCount;
     }
 
-    private void assignMeet(Integer firstNumber, Integer secondNumber) throws Exception {
+    private void assignMeet(Integer firstNumber, Integer secondNumber){
         for (List<Meet> tour: this.toursList)
         {
             for (Meet meet: tour) {
@@ -33,8 +33,6 @@ public class RoundScheme implements Scheme {
             }
 
         }
-        throw new Exception("Cant find specified pair");
-
     }
     private List<List<Meet>> buildScheme(Integer playersCount)
     {

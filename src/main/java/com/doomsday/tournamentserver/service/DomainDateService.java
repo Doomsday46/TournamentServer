@@ -1,11 +1,12 @@
 package com.doomsday.tournamentserver.service;
 
-import com.doomsday.tournamentserver.setting.TimeSetting;
+import com.doomsday.tournamentserver.domain.setting.TimeSetting;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
-@Service
+@Component(value = "DomainDate")
 public class DomainDateService implements DateService{
     private LocalDateTime startDate;
     private LocalDateTime endDate;

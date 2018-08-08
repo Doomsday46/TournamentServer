@@ -2,6 +2,7 @@ package com.doomsday.tournamentserver.service;
 
 import com.doomsday.tournamentserver.domain.model.Player;
 import com.doomsday.tournamentserver.exception.FoundObjectException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Component(value = "DomainPlayer")
 public class DomainPlayerService implements PlayerService{
     private Map<Player, Integer> playersNumbersMap;
 

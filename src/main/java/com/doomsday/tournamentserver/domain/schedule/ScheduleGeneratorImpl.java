@@ -9,16 +9,20 @@ import com.doomsday.tournamentserver.service.DateService;
 import com.doomsday.tournamentserver.service.LocationService;
 import com.doomsday.tournamentserver.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ScheduleGeneratorImpl implements ScheduleGenerator{
     @Autowired
+    @Qualifier("DomainPlayer")
     private PlayerService playerService;
     @Autowired
+    @Qualifier("DomainLocation")
     private LocationService locationService;
     @Autowired
+    @Qualifier("DomainDate")
     private DateService dateService;
     private Scheme tournamentScheme;
 

@@ -2,8 +2,6 @@ package com.doomsday.tournamentserver.domain.scheme;
 
 import com.doomsday.tournamentserver.domain.pair.Pair;
 import com.doomsday.tournamentserver.exception.EmptyParameter;
-import jdk.nashorn.internal.ir.EmptyNode;
-import org.w3c.dom.ranges.RangeException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +21,8 @@ public class OlympicScheme implements Scheme {
     private Integer countPlayers;
     private List<Pair<Integer, Integer>> givenPairsPlayers;
 
-    public OlympicScheme(Integer countPlayers) throws Exception {
-        if (countPlayers < 2) throw new Exception("Incorrect number of players");
+    public OlympicScheme(Integer countPlayers){
+        if (countPlayers < 2) throw new IllegalArgumentException("Incorrect number of players");
         this.root = new Node();
         this.root.nextPositionPlayer = this.root;
         this.countRounds = countTour(countPlayers);
