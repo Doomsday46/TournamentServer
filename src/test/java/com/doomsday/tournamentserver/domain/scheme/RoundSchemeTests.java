@@ -12,7 +12,7 @@ public class RoundSchemeTests {
     private Integer playerCount;
 
     @Before
-    public void testInit() throws Exception
+    public void testInit()
     {
         playerCount = 5;
         testSubject = new RoundScheme(playerCount);
@@ -24,18 +24,18 @@ public class RoundSchemeTests {
         assertEquals((playerCount*(playerCount-1)/2), testSubject.getAllPairs().size());
     }
     @Test()
-    public void schemeGetTourTest() throws Exception
+    public void schemeGetTourTest()
     {
         assertEquals(playerCount-1, testSubject.getAllPairsInTour(0).size());
     }
     @Test()
-    public void schemeGetUnplayedTest() throws Exception
+    public void schemeGetUnplayedTest()
     {
         Pair<Integer, Integer> pair1 = testSubject.getNextNotPlayedPair();
         assertFalse(testSubject.getNextNotPlayedPair().equals(pair1));
     }
     @Test()
-    public void schemeGerLoopTest() throws Exception
+    public void schemeGerLoopTest()
     {
         while (true)
         {
