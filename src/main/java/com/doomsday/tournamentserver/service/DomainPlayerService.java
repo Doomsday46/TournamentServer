@@ -3,12 +3,9 @@ package com.doomsday.tournamentserver.service;
 import com.doomsday.tournamentserver.domain.model.Player;
 import com.doomsday.tournamentserver.exception.FoundObjectException;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.management.ObjectName;
+import java.util.*;
 
 @Component(value = "DomainPlayer")
 public class DomainPlayerService implements PlayerService{
@@ -22,7 +19,7 @@ public class DomainPlayerService implements PlayerService{
     public void addPlayer(Player player)
     {
         if (player == null) throw new NullPointerException();
-        if (playersNumbersMap.containsKey(player)) throw new FoundObjectException("Player already exist in dispatcher");
+        if (playersNumbersMap.containsKey(player)) throw new IllegalArgumentException("Player already exist in dispatcher");
         for (int i =0; i  < playersNumbersMap.entrySet().size()+1; i++)
         {
             if (!(playersNumbersMap.values().contains(i+1)))
@@ -43,13 +40,20 @@ public class DomainPlayerService implements PlayerService{
     @Override
     public List<Integer> getAllPlayersNumbers()
     {
-        return new ArrayList<Integer>(this.playersNumbersMap.values());
+        List playersNumbersList = new ArrayList<Integer>(this.playersNumbersMap.values());
+        playersNumbersList.sort(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1 - o2;
+            }
+        });
+        return playersNumbersList;
     }
     @Override
     public Integer getPlayerNumber(Player player)
     {
         if (player == null) throw new NullPointerException();
-        if (!(playersNumbersMap.containsKey(player))) throw new FoundObjectException("Can't find specified player");
+        if (!(playersNumbersMap.containsKey(player))) throw new IllegalArgumentException("Can't find specified player");
         return playersNumbersMap.get(player);
     }
     @Override
@@ -62,7 +66,7 @@ public class DomainPlayerService implements PlayerService{
     public Player getPlayerByNumber(Integer playerNumber)
     {
         if (playerNumber == null ) throw new NullPointerException();
-        if (!(playersNumbersMap.containsValue(playerNumber))) throw new FoundObjectException("Can't find specified number");
+        if (!(playersNumbersMap.containsValue(playerNumber))) throw new IllegalArgumentException("Can't find specified number");
         for (Player player: this.playersNumbersMap.keySet())
         {
             if (this.playersNumbersMap.get(player).equals(playerNumber))

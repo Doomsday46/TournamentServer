@@ -2,7 +2,6 @@ package com.doomsday.tournamentserver.service;
 
 import com.doomsday.tournamentserver.domain.setting.TimeSetting;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
@@ -17,7 +16,7 @@ public class DomainDateService implements DateService{
     }
     @Override
     public void setTimeSetting(LocalDateTime startDate, TimeSetting timeSettings){
-        if (startDate == null) throw new NullPointerException();
+        if (startDate == null || timeSettings == null) throw new NullPointerException();
         this.startDate = startDate;
         this.timeSettings = timeSettings;
     }
@@ -61,6 +60,8 @@ public class DomainDateService implements DateService{
     }
     @Override
     public void setEndDate(LocalDateTime endDate) {
-        this.endDate = endDate;
+       if(endDate == null || startDate == null) throw new NullPointerException();
+       if(endDate.isBefore(startDate)) throw new IllegalArgumentException();
+       this.endDate = endDate;
     }
 }
