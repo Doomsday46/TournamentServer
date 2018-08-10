@@ -1,5 +1,6 @@
 package com.doomsday.tournamentserver.domain;
 
+import com.doomsday.tournamentserver.domain.model.*;
 import com.doomsday.tournamentserver.domain.scheme.OlympicSchemeTests;
 import com.doomsday.tournamentserver.domain.scheme.RoundSchemeTests;
 import com.doomsday.tournamentserver.domain.service.DomainDateServiceTests;
@@ -15,7 +16,12 @@ import org.junit.runners.Suite;
         RoundSchemeTests.class,
         DomainLocationServiceTests.class,
         DomainDateServiceTests.class,
-        DomainPlayerServiceTests.class
+        DomainPlayerServiceTests.class,
+        LocationTests.class,
+        OneOnOneMatchTests.class,
+        PlayerTests.class,
+        ScoreTests.class,
+        PrizePlaceTests.class
 })
 public class DomainTestManager {
 }

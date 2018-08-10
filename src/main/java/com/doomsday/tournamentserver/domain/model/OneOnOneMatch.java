@@ -1,6 +1,6 @@
 package com.doomsday.tournamentserver.domain.model;
 
-import com.doomsday.tournamentserver.exception.PlayMatchException;
+import com.doomsday.tournamentserver.exception.PlayedMatchException;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -29,8 +29,8 @@ public class OneOnOneMatch implements Match{
     }
 
     @Override
-    public Player getWinner()throws PlayMatchException{
-        if (!isPlayed()) throw new PlayMatchException("Match didn't played");
+    public Player getWinner()throws PlayedMatchException{
+        if (!isPlayed()) throw new PlayedMatchException("Match didn't played");
         return (this.score.getPointsFirstSide() > this.score.getPointsSecondSide()) ? this.firstSide : this.secondSide;
     }
 
@@ -65,9 +65,9 @@ public class OneOnOneMatch implements Match{
     }
 
     @Override
-    public void setPoints(int pointsFirstSide, int pointsSecondSide) throws PlayMatchException{
+    public void setPoints(int pointsFirstSide, int pointsSecondSide) throws PlayedMatchException {
         if (!isPlayed()) this.score.setPoints(pointsFirstSide, pointsSecondSide);
-        else throw new PlayMatchException("Match is already played");
+        else throw new PlayedMatchException("Match is already played");
     }
 
     @Override
