@@ -1,10 +1,8 @@
 package com.doomsday.tournamentserver.service;
 
 import com.doomsday.tournamentserver.domain.model.Player;
-import com.doomsday.tournamentserver.exception.FoundObjectException;
 import org.springframework.stereotype.Component;
 
-import javax.management.ObjectName;
 import java.util.*;
 
 @Component(value = "DomainPlayer")
