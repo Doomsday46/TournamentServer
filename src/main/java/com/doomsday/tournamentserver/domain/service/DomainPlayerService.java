@@ -1,11 +1,10 @@
-package com.doomsday.tournamentserver.service;
+package com.doomsday.tournamentserver.domain.service;
 
 import com.doomsday.tournamentserver.domain.model.Player;
-import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-@Component(value = "DomainPlayer")
+
 public class DomainPlayerService implements PlayerService{
     private Map<Player, Integer> playersNumbersMap;
 

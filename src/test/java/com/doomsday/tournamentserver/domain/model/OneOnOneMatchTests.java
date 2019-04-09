@@ -1,6 +1,6 @@
 package com.doomsday.tournamentserver.domain.model;
 
-import com.doomsday.tournamentserver.exception.PlayedMatchException;
+import com.doomsday.tournamentserver.domain.exception.PlayedMatchException;
 import org.junit.Before;
 import org.junit.Test;
 

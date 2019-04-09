@@ -1,13 +1,12 @@
-package com.doomsday.tournamentserver.service;
+package com.doomsday.tournamentserver.domain.service;
 
 import com.doomsday.tournamentserver.domain.model.Location;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.DuplicateFormatFlagsException;
 import java.util.List;
 
-@Component(value = "DomainLocation")
+
 public class DomainLocationService implements LocationService{
 
     private List<Location> locationsList;

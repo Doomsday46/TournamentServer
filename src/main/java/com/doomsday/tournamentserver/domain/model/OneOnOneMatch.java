@@ -1,6 +1,6 @@
 package com.doomsday.tournamentserver.domain.model;
 
-import com.doomsday.tournamentserver.exception.PlayedMatchException;
+import com.doomsday.tournamentserver.domain.exception.PlayedMatchException;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

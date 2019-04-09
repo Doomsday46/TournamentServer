@@ -1,10 +1,9 @@
-package com.doomsday.tournamentserver.service;
+package com.doomsday.tournamentserver.domain.service;
 
 import com.doomsday.tournamentserver.domain.model.Location;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Service
+
 public interface LocationService {
      List<Location> getAllLocations();
 

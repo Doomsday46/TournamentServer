@@ -1,8 +1,6 @@
 package com.doomsday.tournamentserver.domain.service;
 
 import com.doomsday.tournamentserver.domain.model.Player;
-import com.doomsday.tournamentserver.service.DomainPlayerService;
-import com.doomsday.tournamentserver.service.PlayerService;
 import org.junit.Before;
 import org.junit.Test;
 

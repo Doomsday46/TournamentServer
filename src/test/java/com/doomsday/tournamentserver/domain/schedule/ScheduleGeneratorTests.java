@@ -8,9 +8,9 @@ import com.doomsday.tournamentserver.domain.scheme.OlympicScheme;
 import com.doomsday.tournamentserver.domain.scheme.RoundScheme;
 import com.doomsday.tournamentserver.domain.scheme.Scheme;
 import com.doomsday.tournamentserver.domain.setting.TimeSetting;
-import com.doomsday.tournamentserver.service.DateService;
-import com.doomsday.tournamentserver.service.LocationService;
-import com.doomsday.tournamentserver.service.PlayerService;
+import com.doomsday.tournamentserver.domain.service.DateService;
+import com.doomsday.tournamentserver.domain.service.LocationService;
+import com.doomsday.tournamentserver.domain.service.PlayerService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -68,7 +68,7 @@ public class ScheduleGeneratorTests {
     public void genRoundGenerateTest()
     {
         schemeType = new RoundScheme(playerService.getAllPlayers().size());
-        testSubject = new ScheduleGeneratorImpl(schemeType);
+        testSubject = new ScheduleGeneratorImpl(playerService, locationService, dateService,schemeType);
         Schedule schedule =  testSubject.generateSchedule();
         assertEquals(3, schedule.getAllMatches().size());
     }
@@ -76,7 +76,7 @@ public class ScheduleGeneratorTests {
     public void genRoundUpdateTest()
     {
         schemeType = new RoundScheme(playerService.getAllPlayers().size());
-        testSubject = new ScheduleGeneratorImpl(schemeType);
+        testSubject = new ScheduleGeneratorImpl(playerService, locationService, dateService, schemeType);
         Schedule schedule =  testSubject.generateSchedule();
         Match match1 = schedule.getMatchesByState(MatchState.NOTPLAYED).get(0);
         Match match2 = schedule.getMatchesByState(MatchState.NOTPLAYED).get(1);
@@ -94,7 +94,7 @@ public class ScheduleGeneratorTests {
     public void genRoundUpdateLoopTest()
     {
         schemeType = new RoundScheme(playerService.getAllPlayers().size());
-        testSubject = new ScheduleGeneratorImpl(schemeType);
+        testSubject = new ScheduleGeneratorImpl(playerService, locationService, dateService, schemeType);
         Schedule schedule =  testSubject.generateSchedule();
         while (schedule.getAllMatches().size() < 10) {
             Match match1 = schedule.getMatchesByState(MatchState.NOTPLAYED).get(0);
@@ -111,7 +111,7 @@ public class ScheduleGeneratorTests {
     public void genOlympGenerateTest()
     {
         schemeType = new OlympicScheme(playerService.getAllPlayers().size());
-        testSubject = new ScheduleGeneratorImpl(schemeType);
+        testSubject = new ScheduleGeneratorImpl(playerService, locationService, dateService, schemeType);
         Schedule schedule =  testSubject.generateSchedule();
         assertEquals(3, schedule.getAllMatches().size());
     }

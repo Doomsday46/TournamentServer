@@ -1,8 +1,6 @@
 package com.doomsday.tournamentserver.domain.service;
 
 import com.doomsday.tournamentserver.domain.model.Location;
-import com.doomsday.tournamentserver.service.DomainLocationService;
-import com.doomsday.tournamentserver.service.LocationService;
 import org.junit.Before;
 import org.junit.Test;
 

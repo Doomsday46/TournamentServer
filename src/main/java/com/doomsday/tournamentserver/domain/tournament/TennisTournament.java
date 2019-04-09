@@ -5,13 +5,11 @@ import com.doomsday.tournamentserver.domain.schedule.Schedule;
 import com.doomsday.tournamentserver.domain.schedule.ScheduleGenerator;
 import com.doomsday.tournamentserver.domain.scheme.Scheme;
 import com.doomsday.tournamentserver.domain.scheme.SchemeType;
-import com.doomsday.tournamentserver.exception.FinishTournamentException;
-import com.doomsday.tournamentserver.exception.StartTournamentException;
-import com.doomsday.tournamentserver.service.DateService;
-import com.doomsday.tournamentserver.service.LocationService;
-import com.doomsday.tournamentserver.service.PlayerService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.doomsday.tournamentserver.domain.exception.FinishTournamentException;
+import com.doomsday.tournamentserver.domain.exception.StartTournamentException;
+import com.doomsday.tournamentserver.domain.service.DateService;
+import com.doomsday.tournamentserver.domain.service.LocationService;
+import com.doomsday.tournamentserver.domain.service.PlayerService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -26,22 +24,21 @@ public class TennisTournament implements Tournament {
 
     private Boolean isStart;
 
-    @Autowired
-    @Qualifier("DomainPlayer")
     private PlayerService playerService;
-    @Autowired
-    @Qualifier("DomainLocation")
     private LocationService locationService;
-    @Autowired
-    @Qualifier("DomainDate")
     private DateService dateService;
 
-    public TennisTournament(Schedule schedule, ScheduleGenerator scheduleGenerator,TournamentSetting tournamentSetting, TournamentInfo tournamentInfo) {
+    public TennisTournament(TournamentSetting tournamentSetting, TournamentInfo tournamentInfo, Schedule schedule,
+                            ScheduleGenerator scheduleGenerator, PlayerService playerService, LocationService locationService, DateService dateService) {
         if(scheduleGenerator == null || schedule == null || tournamentSetting == null || tournamentInfo == null) throw new NullPointerException();
-        this.scheduleGenerator = scheduleGenerator;
-        this.schedule = schedule;
+        if(playerService == null || locationService == null || dateService == null) throw new NullPointerException();
         this.tournamentSetting = tournamentSetting;
         this.tournamentInfo = tournamentInfo;
+        this.schedule = schedule;
+        this.scheduleGenerator = scheduleGenerator;
+        this.playerService = playerService;
+        this.locationService = locationService;
+        this.dateService = dateService;
         this.isStart = false;
     }
 

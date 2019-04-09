@@ -1,8 +1,6 @@
 package com.doomsday.tournamentserver.domain.service;
 
 import com.doomsday.tournamentserver.domain.setting.TimeSetting;
-import com.doomsday.tournamentserver.service.DateService;
-import com.doomsday.tournamentserver.service.DomainDateService;
 import org.junit.Test;
 
 import java.time.LocalDateTime;

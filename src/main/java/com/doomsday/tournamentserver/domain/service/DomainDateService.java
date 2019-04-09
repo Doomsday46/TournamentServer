@@ -1,11 +1,9 @@
-package com.doomsday.tournamentserver.service;
+package com.doomsday.tournamentserver.domain.service;
 
 import com.doomsday.tournamentserver.domain.setting.TimeSetting;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
-@Component(value = "DomainDate")
 public class DomainDateService implements DateService{
     private LocalDateTime startDate;
     private LocalDateTime endDate;
@@ -46,18 +44,22 @@ public class DomainDateService implements DateService{
     public LocalDateTime getStartDate() {
         return startDate;
     }
+
     @Override
     public Integer getAllowedHourStart() {
         return timeSettings.getAllowedHourStart();
     }
+
     @Override
     public Integer getAllowedHourEnd() {
         return timeSettings.getAllowedHourEnd();
     }
+
     @Override
     public LocalDateTime getEndDate() {
         return endDate;
     }
+
     @Override
     public void setEndDate(LocalDateTime endDate) {
        if(endDate == null || startDate == null) throw new NullPointerException();
