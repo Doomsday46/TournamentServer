@@ -1,9 +1,7 @@
 package com.doomsday.tournamentserver.service;
 
 import com.doomsday.tournamentserver.domain.model.Location;
-import com.doomsday.tournamentserver.exception.FoundObjectException;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.DuplicateFormatFlagsException;
@@ -46,7 +44,7 @@ public class DomainLocationService implements LocationService{
         if (this.locationsList.contains(existingLocation)) {
             this.locationsList.remove(existingLocation);
         } else {
-            throw new DuplicateFormatFlagsException("Location doesn't exist in dispather");
+            throw new IllegalArgumentException("Location doesn't exist in service");
         }
     }
     @Override
@@ -58,7 +56,7 @@ public class DomainLocationService implements LocationService{
                 return;
             }
         }
-        throw new DuplicateFormatFlagsException("Location with specified place doesn't exist in dispather");
+        throw new IllegalArgumentException("Location with specified place doesn't exist in service");
     }
     @Override
     public Location getFreeLocation() {
@@ -86,10 +84,10 @@ public class DomainLocationService implements LocationService{
             if (!(location.isBusy())) {
                 location.setBusy(true);
             } else {
-                throw new FoundObjectException("Location is busy");
+                throw new IllegalArgumentException("Location is busy");
             }
         } else {
-            throw new FoundObjectException("Location doesn't exist in dispather");
+            throw new IllegalArgumentException("Location doesn't exist in dispather");
         }
     }
     @Override
@@ -101,12 +99,12 @@ public class DomainLocationService implements LocationService{
                     location.setBusy(true);
                     return;
                 } else {
-                    throw new FoundObjectException("Location is busy");
+                    throw new IllegalArgumentException("Location is busy");
                 }
             }
 
         }
-        throw new FoundObjectException("Location doesn't exist in dispather");
+        throw new IllegalArgumentException("Location doesn't exist in dispather");
     }
     @Override
     public void freeLocation(Location location) {
@@ -115,7 +113,7 @@ public class DomainLocationService implements LocationService{
             location.setBusy(false);
 
         } else {
-            throw new FoundObjectException("Location doesn't exist in dispather");
+            throw new IllegalArgumentException("Location doesn't exist in dispather");
         }
     }
     @Override
@@ -127,6 +125,6 @@ public class DomainLocationService implements LocationService{
                 return;
             }
         }
-        throw new FoundObjectException("Location doesn't exist in dispather");
+        throw new IllegalArgumentException("Location doesn't exist in dispather");
     }
 }

@@ -2,7 +2,6 @@ package com.doomsday.tournamentserver.domain.tournament;
 
 import com.doomsday.tournamentserver.domain.scheme.Scheme;
 import com.doomsday.tournamentserver.domain.scheme.SchemeStrategy;
-import com.doomsday.tournamentserver.domain.scheme.SchemeType;
 import com.doomsday.tournamentserver.domain.setting.TimeSetting;
 import com.doomsday.tournamentserver.domain.winneridentifier.WinnerIdentifier;
 import com.doomsday.tournamentserver.domain.winneridentifier.WinnerIdentifierStrategy;

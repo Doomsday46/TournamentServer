@@ -7,13 +7,13 @@ public class Location {
     private Boolean isBusy;
 
     public Location(String place, String description){
-        if ((place == null) || (place.isEmpty()))
+        if (place == null || description == null)
         {
-            throw new IllegalArgumentException("Place string cannot be empty or null");
+            throw new NullPointerException();
         }
-        if (description == null)
+        if (place.isEmpty())
         {
-            throw  new IllegalArgumentException("Description string cannot be null");
+            throw  new IllegalArgumentException();
         }
         this.place = place;
         this.description = description;
@@ -44,7 +44,7 @@ public class Location {
 
     public void setBusy(Boolean busy){
         if (busy == null)
-            throw new IllegalArgumentException("Method's argument cannot be null");
+            throw new NullPointerException();
         isBusy = busy;
     }
 }
