@@ -14,13 +14,12 @@ public class Tournament {
     private String name;
 
     private User user;
-    private TournamentInfo tournamentInfo;
     private Setting setting;
-    private Schedule schedule;
 
     private Set<Player> players;
     private Set<Location> locations;
     private Set<PrizePlace> prizePlaces;
+    private Set<Match> matches;
 
 
     public Tournament() {
@@ -41,15 +40,6 @@ public class Tournament {
         this.idTournament = idTournament;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "schedule_id", referencedColumnName = "id")
-    public Schedule getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
-    }
 
     @OneToMany(mappedBy = "tournament")
     @OnDelete(action = OnDeleteAction.NO_ACTION)
@@ -67,16 +57,6 @@ public class Tournament {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "tournament_info_id", referencedColumnName = "id")
-    public TournamentInfo getTournamentInfo() {
-        return tournamentInfo;
-    }
-
-    public void setTournamentInfo(TournamentInfo tournamentInfo) {
-        this.tournamentInfo = tournamentInfo;
     }
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -126,6 +106,16 @@ public class Tournament {
         if (o == null || getClass() != o.getClass()) return false;
         Tournament that = (Tournament) o;
         return Objects.equals(idTournament, that.idTournament);
+    }
+
+    @OneToMany(mappedBy = "tournament")
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    public Set<Match> getMatches() {
+        return matches;
+    }
+
+    public void setMatches(Set<Match> matches) {
+        this.matches = matches;
     }
 
     @Override

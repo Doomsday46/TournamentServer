@@ -22,7 +22,6 @@ public class Match {
     private Set<Player> players;
     private Location location;
     private Tournament tournament;
-    private Schedule schedule;
 
     public Match() {
     }
@@ -35,17 +34,6 @@ public class Match {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "schedule_id", nullable = true)
-    @OnDelete(action = OnDeleteAction.NO_ACTION)
-    public Schedule getSchedule() {
-        return schedule;
-    }
-
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
     }
 
     public Boolean getState() {
@@ -96,8 +84,9 @@ public class Match {
         this.players = players;
     }
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "location_id", referencedColumnName = "idLocation")
+    @ManyToOne
+    @JoinColumn(name = "location_id", nullable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
     public Location getLocation() {
         return location;
     }
