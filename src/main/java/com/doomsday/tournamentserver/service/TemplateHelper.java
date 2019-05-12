@@ -1,6 +1,7 @@
 package com.doomsday.tournamentserver.service;
 
-import com.doomsday.tournamentserver.database.entity.User;
+
+import com.doomsday.tournamentserver.db.User;
 
 public interface TemplateHelper {
     boolean isLoggedIn();

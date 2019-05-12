@@ -1,7 +1,7 @@
 package com.doomsday.tournamentserver.domain.scheme;
 
-import com.doomsday.tournamentserver.domain.pair.Pair;
 import com.doomsday.tournamentserver.domain.exception.EmptyParameter;
+import com.doomsday.tournamentserver.domain.pair.Pair;
 
 import java.util.ArrayList;
 import java.util.List;

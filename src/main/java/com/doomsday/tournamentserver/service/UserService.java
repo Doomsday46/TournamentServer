@@ -1,7 +1,9 @@
 package com.doomsday.tournamentserver.service;
-import java.util.List;
-import com.doomsday.tournamentserver.database.entity.User;
 
+
+import com.doomsday.tournamentserver.db.User;
+
+import java.util.List;
 
 public interface UserService {
     void save(User user);

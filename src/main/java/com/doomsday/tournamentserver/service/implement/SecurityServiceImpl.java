@@ -1,8 +1,8 @@
 package com.doomsday.tournamentserver.service.implement;
 
-import com.doomsday.tournamentserver.database.entity.User;
-import com.doomsday.tournamentserver.service.SecurityService;
-import com.doomsday.tournamentserver.service.UserService;
+import com.test.tournamentDB.db.User;
+import com.test.tournamentDB.service.SecurityService;
+import com.test.tournamentDB.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
