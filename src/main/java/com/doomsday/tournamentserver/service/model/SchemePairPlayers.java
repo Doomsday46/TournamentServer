@@ -1,6 +1,6 @@
 package com.doomsday.tournamentserver.service.model;
 
-import com.test.tournamentDB.service.model.information.PlayerViewInformation;
+import com.doomsday.tournamentserver.service.model.information.PlayerViewInformation;
 
 public class SchemePairPlayers {
 

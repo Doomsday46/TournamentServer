@@ -1,8 +1,8 @@
 package com.doomsday.tournamentserver.service.implement;
 
 
-import com.test.tournamentDB.db.User;
-import com.test.tournamentDB.service.UserService;
+import com.doomsday.tournamentserver.db.User;
+import com.doomsday.tournamentserver.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

@@ -1,11 +1,11 @@
 package com.doomsday.tournamentserver.service.implement;
 
 
-import com.test.tournamentDB.db.Role;
-import com.test.tournamentDB.db.User;
-import com.test.tournamentDB.db.repository.RoleRepository;
-import com.test.tournamentDB.db.repository.UserRepository;
-import com.test.tournamentDB.service.RoleService;
+import com.doomsday.tournamentserver.db.Role;
+import com.doomsday.tournamentserver.db.User;
+import com.doomsday.tournamentserver.db.repository.RoleRepository;
+import com.doomsday.tournamentserver.db.repository.UserRepository;
+import com.doomsday.tournamentserver.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
