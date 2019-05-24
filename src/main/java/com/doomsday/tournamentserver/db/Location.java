@@ -25,6 +25,11 @@ public class Location {
     @JoinColumn(name = "match_id", referencedColumnName = "id")
     private Match match;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    public User user;
+
     public Location() {
     }
 
@@ -70,6 +75,14 @@ public class Location {
 
     public boolean isState() {
         return state;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public void setState(boolean state) {

@@ -4,6 +4,7 @@ import com.doomsday.tournamentserver.db.Location;
 import com.doomsday.tournamentserver.service.model.information.LocationViewInformation;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class LocationToLocationInfoMapper implements Mapper<LocationViewInformation, Location>  {
 

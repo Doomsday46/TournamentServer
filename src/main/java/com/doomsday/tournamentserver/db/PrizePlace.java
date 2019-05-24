@@ -22,11 +22,14 @@ public class PrizePlace {
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Tournament tournament;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<Player> players = new ArrayList<Player>();
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "player_id", referencedColumnName = "id")
+    private Player player;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    public User user;
 
     public PrizePlace() {
     }
@@ -55,11 +58,19 @@ public class PrizePlace {
         this.tournament = tournament;
     }
 
-    public List<Player> getPlayers() {
-        return players;
+    public Player getPlayer() {
+        return player;
     }
 
-    public void setPlayers(List<Player> players) {
-        this.players = players;
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

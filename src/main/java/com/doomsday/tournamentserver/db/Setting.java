@@ -1,5 +1,7 @@
 package com.doomsday.tournamentserver.db;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -38,6 +40,11 @@ public class Setting {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "tournament_id", referencedColumnName = "id")
     private Tournament tournament;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    public User user;
 
     public Setting() {
     }
@@ -120,5 +127,13 @@ public class Setting {
 
     public void setTournament(Tournament tournament) {
         this.tournament = tournament;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

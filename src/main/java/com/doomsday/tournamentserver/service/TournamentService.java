@@ -14,7 +14,6 @@ public interface TournamentService {
     long saveTournament(long idUser, TournamentView tournamentView);
     boolean createTournament(long idUser, long idTournament);
     boolean updateDataForTournament(long idUser, long idTournament, TournamentView tournamentView);
-    boolean updateDataForTournament(long idUser, String name);
     boolean deleteTournament(long idUser, long idTournament);
     Tournament getTournament(long idUser, long idTournament);
     TournamentInformation getTournamentInformation(long idUser, long idTournament);

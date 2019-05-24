@@ -44,6 +44,6 @@ public class TournamentToTournamentInfoMapper implements Mapper<TournamentInform
 
         var settingInfo = settingToSettingInfoMapper.map(tournament.getSetting());
 
-        return new TournamentInformation(tournament.getId(), tournament.getName(), settingInfo, playerInfoList, locationInfoList);
+        return new TournamentInformation(tournament.getId(), tournament.getName(), settingInfo, object.isFinished, playerInfoList, locationInfoList);
     }
 }

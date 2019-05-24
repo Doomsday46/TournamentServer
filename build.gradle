@@ -30,6 +30,7 @@ dependencies {
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.1.4.RELEASE'
 	compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
 	compile("com.h2database:h2")
+	compile 'org.springframework:spring-webmvc:3.2.2.RELEASE'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile group: 'org.mockito', name: 'mockito-all', version: '1.8.4'
 }

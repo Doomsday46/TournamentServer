@@ -23,9 +23,8 @@ public class Player {
     @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     private Date age;
 
-    @ManyToOne
-    @JoinColumn(name = "prizeplace_id", nullable = true)
-    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "prizePlace_id", referencedColumnName = "id")
     private PrizePlace prizePlace;
     @ManyToOne
     @JoinColumn(name = "tournament_id", nullable = true)
@@ -34,6 +33,11 @@ public class Player {
 
     @ManyToMany
     private List<Match> match = new ArrayList<Match>();
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = true)
+    @OnDelete(action = OnDeleteAction.NO_ACTION)
+    public User user;
 
     public Player() {
     }
@@ -100,5 +104,13 @@ public class Player {
 
     public void setMatch(List<Match> match) {
         this.match = match;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

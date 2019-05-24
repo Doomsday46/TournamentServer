@@ -61,7 +61,7 @@ public class PlayerController {
         User user = userService.findByUsername(templateHelper.getUsername());
 
         try {
-            boolean isAdd = playerService.addPlayerForTournament(user.getId(), playerView);
+            boolean isAdd = playerService.savePlayer(user.getId(), playerView);
             if (!isAdd) return getResponse(400, new Information(getMessage("saveModel.error")));
             return getResponse(200, new Information(getMessage("successful")));
         } catch(Exception ex) {

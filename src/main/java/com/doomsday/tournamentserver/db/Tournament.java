@@ -18,6 +18,9 @@ public class Tournament {
     @Column
     public String name;
 
+    @Column
+    public boolean isFinished;
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = true)
     @OnDelete(action = OnDeleteAction.NO_ACTION)
@@ -114,5 +117,13 @@ public class Tournament {
 
     public void setPlayers(List<Player> players) {
         this.players = players;
+    }
+
+    public boolean isFinished() {
+        return isFinished;
+    }
+
+    public void setFinished(boolean finished) {
+        isFinished = finished;
     }
 }
