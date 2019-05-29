@@ -19,7 +19,7 @@ public class Tournament {
     public String name;
 
     @Column
-    public boolean isFinished;
+    public boolean finished;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = true)
@@ -35,11 +35,13 @@ public class Tournament {
             orphanRemoval = true
     )
     public List<PrizePlace> prizePlace = new ArrayList<PrizePlace>();
+
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
     public List<Match> matches = new ArrayList<Match>();
+
     @OneToMany(
             cascade = CascadeType.ALL,
             orphanRemoval = true
@@ -119,11 +121,11 @@ public class Tournament {
         this.players = players;
     }
 
-    public boolean isFinished() {
-        return isFinished;
+    public boolean getFinished() {
+        return finished;
     }
 
     public void setFinished(boolean finished) {
-        isFinished = finished;
+        this.finished = finished;
     }
 }

@@ -16,7 +16,8 @@ apply plugin: 'io.spring.dependency-management'
 
 group = 'com.doomsday'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.8
+sourceCompatibility = 10
+
 
 repositories {
 	mavenCentral()
@@ -26,11 +27,11 @@ repositories {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile("org.springframework.boot:spring-boot-starter-data-jpa")
-	compile group: 'org.springframework.security', name: 'spring-security-web', version: '5.1.5.RELEASE'
+	compile group: 'org.springframework.security', name: 'spring-security-core', version: '5.1.5.RELEASE'
+	compile group: 'org.springframework.session', name: 'spring-session-core', version: '2.1.6.RELEASE'
 	compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '2.1.4.RELEASE'
 	compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
 	compile("com.h2database:h2")
-	compile 'org.springframework:spring-webmvc:3.2.2.RELEASE'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile group: 'org.mockito', name: 'mockito-all', version: '1.8.4'
 }

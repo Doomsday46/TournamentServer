@@ -18,6 +18,7 @@ public class Match {
     private long id;
     private int scoreFirstSide;
     private int scoreSecondSide;
+
     @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
     private Date date;
     private boolean state;
@@ -25,6 +26,7 @@ public class Match {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     private Location location;
+
     @ManyToOne
     @JoinColumn(name = "tournament_id", nullable = true)
     @OnDelete(action = OnDeleteAction.NO_ACTION)

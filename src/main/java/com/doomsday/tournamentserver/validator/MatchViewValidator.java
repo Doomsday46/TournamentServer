@@ -52,7 +52,7 @@ public class MatchViewValidator implements Validator<MatchView> {
         var idMatchField = (!isValidIdMatch(matchView.getIdMatch())) ? "idMatch " : "";
         var scoreFirstPlayerField = (!isValidScoreFirstPlayer(matchView.getScoreFirstPlayer())) ? "scoreFirstPlayer " : "";
         var scoreSecondPlayerField = (!isValidScoreSecondPlayer(matchView.getScoreSecondPlayer())) ? "scoreSecondPlayer " : "";
-        var isFinishedField = (!isValidIsFinished(matchView.isFinished())) ? "isFinished " : "";
+        var isFinishedField = (!isValidIsFinished(matchView.isFinished())) ? "finished " : "";
         var idTournamentField = (!isValidIdTournament(matchView.getIdTournament())) ? "idTournament " : "";
 
         return listNameField(idMatchField, scoreFirstPlayerField, scoreSecondPlayerField, isFinishedField, idTournamentField);
