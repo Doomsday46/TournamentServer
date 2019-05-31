@@ -5,7 +5,7 @@ import com.doomsday.tournamentserver.db.Game;
 import java.util.Date;
 import java.util.List;
 
-public interface MatchService {
+public interface GameService {
     boolean save(long idUser, long idTournament, Game game);
     boolean update(long idUser, long idTournament, Game game);
     boolean remove(long idUser, long idTournament, Game game);

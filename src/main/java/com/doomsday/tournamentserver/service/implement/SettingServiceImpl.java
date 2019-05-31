@@ -36,6 +36,7 @@ public class SettingServiceImpl implements SettingService {
             if (tournamentRepository.existsById(setting.getIdTournament())) {
                 var tournament = tournamentRepository.getOne(setting.getIdTournament());
                 _setting.setTournament(tournament);
+                _setting.setUser(userRepository.getOne(idUser));
                 tournament.setSetting(_setting);
 
                 settingRepository.saveAndFlush(_setting);

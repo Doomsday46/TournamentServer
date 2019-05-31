@@ -2,6 +2,7 @@ package com.doomsday.tournamentserver.db.repository;
 
 import com.doomsday.tournamentserver.db.PrizePlace;
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import java.util.List;
 public interface PrizePlaceRepository extends JpaRepository<PrizePlace, Long> {
     PrizePlace findByTournament_IdAndUser_IdAndNumber(long tournament_id, Long user_id, int number);

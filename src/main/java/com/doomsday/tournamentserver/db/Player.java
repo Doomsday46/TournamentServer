@@ -5,7 +5,9 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "player")
@@ -31,7 +33,7 @@ public class Player {
 
 
     @ManyToMany(mappedBy = "players")
-    private Set<Game> games = new HashSet<Game>();
+    private Set<Game> games = new HashSet();
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = true)
@@ -103,6 +105,10 @@ public class Player {
 
     public void setGames(Set<Game> games) {
         this.games = games;
+    }
+
+    public void addGames(Game game) {
+        this.games.add(game);
     }
 
     public User getUser() {

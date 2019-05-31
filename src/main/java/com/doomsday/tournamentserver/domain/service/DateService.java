@@ -11,5 +11,6 @@ public interface DateService {
     Integer getAllowedHourStart();
     Integer getAllowedHourEnd();
     LocalDateTime getEndDate();
+    TimeSetting getTimeSettings();
     void setEndDate(LocalDateTime endDate);
 }

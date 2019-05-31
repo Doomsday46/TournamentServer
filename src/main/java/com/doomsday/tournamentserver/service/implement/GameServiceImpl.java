@@ -1,13 +1,14 @@
 package com.doomsday.tournamentserver.service.implement;
 
 import com.doomsday.tournamentserver.db.Game;
-import com.doomsday.tournamentserver.service.MatchService;
+import com.doomsday.tournamentserver.service.GameService;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 @Service
-public class MatchServiceImpl implements MatchService {
+public class GameServiceImpl implements GameService {
+
     @Override
     public boolean save(long idUser, long idTournament, Game game) {
         return false;

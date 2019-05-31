@@ -3,23 +3,23 @@ package com.doomsday.tournamentserver.domain.setting;
 public class TimeSetting {
     private Integer allowedHourStart;
     private Integer allowedHourEnd;
-    private Integer dateHourOffset;
+    private Double dateMinutesOffset;
 
 
     public TimeSetting()  {
         this.allowedHourStart = 10;
         this.allowedHourEnd = 20;
-        this.dateHourOffset = 12;
+        this.dateMinutesOffset = 60.0;
     }
-    public TimeSetting(Integer allowedHourStart, Integer allowedHourEnd, Integer dateHourOffset){
-        if (allowedHourStart == null || allowedHourEnd == null || dateHourOffset == null) throw new NullPointerException();
-        if (dateHourOffset < 0) throw new IllegalArgumentException("Time offset cannot be below zero");
+    public TimeSetting(Integer allowedHourStart, Integer allowedHourEnd, Double dateMinutesOffset){
+        if (allowedHourStart == null || allowedHourEnd == null || dateMinutesOffset == null) throw new NullPointerException();
+        if (dateMinutesOffset < 0) throw new IllegalArgumentException("Time offset cannot be below zero");
         if (allowedHourEnd <= allowedHourStart) throw new IllegalArgumentException("End of allowed time cannot be lower or equal to start time");
         if ((allowedHourEnd > 23) || (allowedHourEnd < 0) || (allowedHourStart > 23) || (allowedHourStart < 0))
             throw new IllegalArgumentException("Bad hour values");
         this.allowedHourStart = allowedHourStart;
         this.allowedHourEnd = allowedHourEnd;
-        this.dateHourOffset = dateHourOffset;
+        this.dateMinutesOffset = dateMinutesOffset;
     }
 
 
@@ -31,7 +31,7 @@ public class TimeSetting {
         return allowedHourEnd;
     }
 
-    public Integer getDateHourOffset() {
-        return dateHourOffset;
+    public Double getDateMinutesOffset() {
+        return dateMinutesOffset;
     }
 }

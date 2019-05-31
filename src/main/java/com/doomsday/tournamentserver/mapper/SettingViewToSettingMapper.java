@@ -5,7 +5,6 @@ import com.doomsday.tournamentserver.service.model.view.SettingView;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
-import java.util.Map;
 @Service
 public class SettingViewToSettingMapper implements Mapper<Setting, SettingView> {
 

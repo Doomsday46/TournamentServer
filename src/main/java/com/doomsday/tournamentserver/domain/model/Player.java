@@ -8,6 +8,8 @@ public class Player {
     private String lastName;
     private String patronymicName;
 
+    private Integer number;
+
     private LocalDate birthDate;
 
     private final int AGE_LIMIT = 7;
@@ -50,6 +52,13 @@ public class Player {
         return calculateAge(this.birthDate);
     }
 
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -68,6 +68,31 @@ public class UniversalTournament implements Tournament {
     }
 
     @Override
+    public PlayerService getPlayerService() {
+        return playerService;
+    }
+
+    @Override
+    public LocationService getLocationService() {
+        return locationService;
+    }
+
+    @Override
+    public DateService getDateService() {
+        return dateService;
+    }
+
+    @Override
+    public TournamentInfo getTournamentInfo() {
+        return tournamentInfo;
+    }
+
+    @Override
+    public TournamentSetting getTournamentSetting() {
+        return tournamentSetting;
+    }
+
+    @Override
     public void start() {
         if (!this.isStart) {
             this.isStart = true;

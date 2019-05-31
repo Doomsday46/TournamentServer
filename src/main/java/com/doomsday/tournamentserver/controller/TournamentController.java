@@ -80,6 +80,25 @@ public class TournamentController {
         }
     }
 
+    @RequestMapping(value = {"/api/tournament/create/{idTournament}"}, method = RequestMethod.POST)
+    public ResponseEntity<Response> createTournament(@PathVariable Long idTournament) {
+        if (idTournament <= 0)
+            return new ResponseEntity<>(new Response<>(400, new Information(getMessage("incorrectParameter"))),HttpStatus.BAD_REQUEST);
+
+        User user = userService.findByUsername(templateHelper.getUsername());
+
+        try {
+
+            var isCreate = tournamentService.createTournament(user.getId(), idTournament);
+
+            if (!isCreate) return new ResponseEntity<>(getResponse(400, new Information("failed")), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(getResponse(200, new Information("successfull")), HttpStatus.OK);
+
+        } catch(Exception ex) {
+            return new ResponseEntity<>(getResponse(400, new Information(ex.getMessage())), HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @RequestMapping(value = {"/api/tournament/"}, method = RequestMethod.POST)
     public ResponseEntity<Response> saveTournament(@RequestBody TournamentView tournamentView) {
         if (!tournamentViewValidator.setModel(tournamentView).isValid())

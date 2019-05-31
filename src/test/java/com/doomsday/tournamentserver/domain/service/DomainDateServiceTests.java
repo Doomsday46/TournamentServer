@@ -30,7 +30,7 @@ public class DomainDateServiceTests {
     public void test_getNextDate()
     {
         testSubject = new DomainDateService();
-        testSubject.setTimeSetting(LocalDateTime.now(), new TimeSetting(10, 18, 12));
+        testSubject.setTimeSetting(LocalDateTime.now(), new TimeSetting(10, 18, 12*60.0));
         System.out.print(LocalDateTime.now());
         System.out.print('\n');
         System.out.print(testSubject.getNextDate());
@@ -41,7 +41,7 @@ public class DomainDateServiceTests {
     {
         testSubject = new DomainDateService();
         LocalDateTime startDate = LocalDateTime.now();
-        testSubject.setTimeSetting(startDate, new TimeSetting(10, 18, 12));
+        testSubject.setTimeSetting(startDate, new TimeSetting(10, 18, 12*60.0));
         assertEquals(startDate, testSubject.getStartDate());
     }
     @Test()
@@ -51,7 +51,7 @@ public class DomainDateServiceTests {
         LocalDateTime startDate = LocalDateTime.now();
         Integer allowedHourStart = 10;
         Integer allowedHourEnd = 18;
-        Integer allowedHourOffset = 12;
+        Double allowedHourOffset = 12*60.5;
         testSubject.setTimeSetting(startDate, new TimeSetting(allowedHourStart, allowedHourEnd, allowedHourOffset));
         assertEquals(allowedHourStart, testSubject.getAllowedHourStart());
     }
@@ -62,7 +62,7 @@ public class DomainDateServiceTests {
         LocalDateTime startDate = LocalDateTime.now();
         Integer allowedHourStart = 10;
         Integer allowedHourEnd = 18;
-        Integer allowedHourOffset = 12;
+        Double allowedHourOffset = 12*60.0;
         testSubject.setTimeSetting(startDate, new TimeSetting(allowedHourStart, allowedHourEnd, allowedHourOffset));
         assertEquals(allowedHourEnd, testSubject.getAllowedHourEnd());
     }
@@ -73,7 +73,7 @@ public class DomainDateServiceTests {
         LocalDateTime startDate = LocalDateTime.now();
         Integer allowedHourStart = 10;
         Integer allowedHourEnd = 18;
-        Integer allowedHourOffset = 12;
+        Double allowedHourOffset = 12*60.0;
         testSubject.setTimeSetting(startDate, new TimeSetting(allowedHourStart, allowedHourEnd, allowedHourOffset));
         LocalDateTime endDate = LocalDateTime.of(2020,5,10,12,0);
         testSubject.setEndDate(endDate);
@@ -85,7 +85,7 @@ public class DomainDateServiceTests {
         LocalDateTime startDate = LocalDateTime.now();
         Integer allowedHourStart = 10;
         Integer allowedHourEnd = 18;
-        Integer allowedHourOffset = 12;
+        Double allowedHourOffset = 12*60.5;
         testSubject.setTimeSetting(startDate, new TimeSetting(allowedHourStart, allowedHourEnd, allowedHourOffset));
         LocalDateTime endDate = LocalDateTime.of(2020,5,10,12,0);
         testSubject.setEndDate(null);
@@ -97,7 +97,7 @@ public class DomainDateServiceTests {
         LocalDateTime startDate = LocalDateTime.now();
         Integer allowedHourStart = 10;
         Integer allowedHourEnd = 18;
-        Integer allowedHourOffset = 12;
+        Double allowedHourOffset = 12*60.0;
         testSubject.setTimeSetting(startDate, new TimeSetting(allowedHourStart, allowedHourEnd, allowedHourOffset));
         LocalDateTime endDate = LocalDateTime.of(2002,5,10,12,0);
         testSubject.setEndDate(endDate);
@@ -109,7 +109,7 @@ public class DomainDateServiceTests {
         LocalDateTime startDate = LocalDateTime.now();
         Integer allowedHourStart = 10;
         Integer allowedHourEnd = 18;
-        Integer allowedHourOffset = 12;
+        Double allowedHourOffset = 12*60.0;
         LocalDateTime endDate = LocalDateTime.of(2020,5,10,12,0);
         testSubject.setTimeSetting(startDate, new TimeSetting(allowedHourStart, allowedHourEnd, allowedHourOffset));
         testSubject.setEndDate(endDate);

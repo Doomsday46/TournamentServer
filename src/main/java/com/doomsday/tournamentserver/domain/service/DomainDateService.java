@@ -12,6 +12,7 @@ public class DomainDateService implements DateService{
     public DomainDateService()
     {
     }
+
     @Override
     public void setTimeSetting(LocalDateTime startDate, TimeSetting timeSettings){
         if (startDate == null || timeSettings == null) throw new NullPointerException();
@@ -26,7 +27,7 @@ public class DomainDateService implements DateService{
         {
             currentDate = this.startDate;
         }
-        currentDate = currentDate.plusHours(this.timeSettings.getDateHourOffset());
+        currentDate = currentDate.plusMinutes(Math.round(this.timeSettings.getDateMinutesOffset()));
         if (currentDate.getHour() < timeSettings.getAllowedHourStart())
         {
             currentDate = currentDate.withHour(timeSettings.getAllowedHourStart());
@@ -40,6 +41,11 @@ public class DomainDateService implements DateService{
         }
         return currentDate;
     }
+    @Override
+    public TimeSetting getTimeSettings() {
+        return timeSettings;
+    }
+
     @Override
     public LocalDateTime getStartDate() {
         return startDate;

@@ -32,28 +32,28 @@ public class DomainPlayerServiceTests {
         @Test()
         public void test_addPlayer()
         {
-            testSubject.addPlayer(player1);
+            testSubject.addNewPlayer(player1);
         }
         @Test(expected = NullPointerException.class)
         public void test_addPlayer_whenNullParameter_resultException() throws NullPointerException
         {
-            testSubject.addPlayer(null);
+            testSubject.addNewPlayer(null);
         }
         @Test()
         public void test_addPlayers()
         {
-            testSubject.addPlayers(playerList);
+            testSubject.addNewPlayers(playerList);
         }
         @Test(expected = NullPointerException.class)
         public void test_addPlayers_whenNullParameter()throws NullPointerException
         {
-            testSubject.addPlayers(null);
+            testSubject.addNewPlayers(null);
         }
         @Test()
         public void test_getAllPlayers()
         {
-            testSubject.addPlayer(player1);
-            testSubject.addPlayer(player2);
+            testSubject.addNewPlayer(player1);
+            testSubject.addNewPlayer(player2);
             assertEquals(2,testSubject.getAllPlayers().size());
         }
         @Test()
@@ -64,8 +64,8 @@ public class DomainPlayerServiceTests {
         @Test()
         public void test_getAllPlayersNumbers()
         {
-            testSubject.addPlayer(player1);
-            testSubject.addPlayer(player2);
+            testSubject.addNewPlayer(player1);
+            testSubject.addNewPlayer(player2);
             List<Integer> list = new ArrayList<>();
             list.add(1);
             list.add(2);
@@ -80,29 +80,29 @@ public class DomainPlayerServiceTests {
         @Test(expected = IllegalArgumentException.class)
         public void test_addPlayer_whenDuplicateParameter_resultException() throws IllegalArgumentException
         {
-            testSubject.addPlayer(player1);
-            testSubject.addPlayer(player1);
+            testSubject.addNewPlayer(player1);
+            testSubject.addNewPlayer(player1);
         }
         @Test
         public void test_getPlayerNumber(){
-            testSubject.addPlayer(player1);
+            testSubject.addNewPlayer(player1);
             assertEquals((Integer)1,testSubject.getPlayerNumber(player1));
         }
         @Test(expected = IllegalArgumentException.class)
         public void test_getPlayerNumber_whenInvalidPlayer()throws IllegalArgumentException
         {
-            testSubject.addPlayer(player1);
+            testSubject.addNewPlayer(player1);
             assertEquals((Integer)1,testSubject.getPlayerNumber(player2));
         }
         @Test
         public void test_getPlayerByNumber(){
-            testSubject.addPlayer(player1);
+            testSubject.addNewPlayer(player1);
             assertEquals(player1,testSubject.getPlayerByNumber(1));
         }
         @Test(expected = IllegalArgumentException.class)
         public void test_getPlayerByNumber_whenInvalidPlayer()throws IllegalArgumentException
         {
-            testSubject.addPlayer(player1);
+            testSubject.addNewPlayer(player1);
             testSubject.getPlayerByNumber(3);
         }
 

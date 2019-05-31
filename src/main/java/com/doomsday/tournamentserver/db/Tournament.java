@@ -1,12 +1,9 @@
 package com.doomsday.tournamentserver.db;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -34,7 +31,6 @@ public class Tournament {
 
     @OneToMany(
             cascade = CascadeType.ALL,
-            orphanRemoval = true,
             fetch = FetchType.EAGER,
             mappedBy = "tournament"
     )

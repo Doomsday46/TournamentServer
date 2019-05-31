@@ -43,21 +43,21 @@ public class ScheduleGeneratorTests {
     @Before
     public void initTest()
     {
-        playerService.addPlayer(mock(Player.class));
-        playerService.addPlayer(mock(Player.class));
-        playerService.addPlayer(mock(Player.class));
-        playerService.addPlayer(mock(Player.class));
-        playerService.addPlayer(mock(Player.class));
-        playerService.addPlayer(mock(Player.class));
-        playerService.addPlayer(mock(Player.class));
-        playerService.addPlayer(mock(Player.class));
+        playerService.addNewPlayer(mock(Player.class));
+        playerService.addNewPlayer(mock(Player.class));
+        playerService.addNewPlayer(mock(Player.class));
+        playerService.addNewPlayer(mock(Player.class));
+        playerService.addNewPlayer(mock(Player.class));
+        playerService.addNewPlayer(mock(Player.class));
+        playerService.addNewPlayer(mock(Player.class));
+        playerService.addNewPlayer(mock(Player.class));
         loc1 = new Location("1", "");
         loc2 = new Location("2", "");
         loc3 = new Location("3", "");
         locationService.addLocation(loc1);
         locationService.addLocation(loc2);
         locationService.addLocation(loc3);
-        dateService.setTimeSetting(LocalDateTime.now(), new TimeSetting(10, 18, 12));
+        dateService.setTimeSetting(LocalDateTime.now(), new TimeSetting(10, 18, 12*60.0));
 
 
     }
