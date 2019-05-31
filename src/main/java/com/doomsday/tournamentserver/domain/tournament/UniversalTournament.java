@@ -14,7 +14,7 @@ import com.doomsday.tournamentserver.domain.service.PlayerService;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class TennisTournament implements Tournament {
+public class UniversalTournament implements Tournament {
 
     private TournamentSetting tournamentSetting;
     private TournamentInfo tournamentInfo;
@@ -28,8 +28,8 @@ public class TennisTournament implements Tournament {
     private LocationService locationService;
     private DateService dateService;
 
-    public TennisTournament(TournamentSetting tournamentSetting, TournamentInfo tournamentInfo, Schedule schedule,
-                            ScheduleGenerator scheduleGenerator, PlayerService playerService, LocationService locationService, DateService dateService) {
+    public UniversalTournament(TournamentSetting tournamentSetting, TournamentInfo tournamentInfo, Schedule schedule,
+                               ScheduleGenerator scheduleGenerator, PlayerService playerService, LocationService locationService, DateService dateService) {
         if(scheduleGenerator == null || schedule == null || tournamentSetting == null || tournamentInfo == null) throw new NullPointerException();
         if(playerService == null || locationService == null || dateService == null) throw new NullPointerException();
         this.tournamentSetting = tournamentSetting;
