@@ -48,7 +48,7 @@ public class SettingServiceImpl implements SettingService {
             return false;
         }
 
-        return false;
+        return true;
     }
 
     @Override
@@ -78,7 +78,7 @@ public class SettingServiceImpl implements SettingService {
             return false;
         }
 
-        return false;
+        return true;
     }
 
     @Override
@@ -96,7 +96,7 @@ public class SettingServiceImpl implements SettingService {
             return false;
         }
 
-        return false;
+        return true;
     }
 
     @Override

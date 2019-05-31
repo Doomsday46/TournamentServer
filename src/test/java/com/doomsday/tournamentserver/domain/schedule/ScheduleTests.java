@@ -38,7 +38,8 @@ public class ScheduleTests {
     @Test()
     public void test_getAllMatches()
     {
-        assertEquals(4, testSubject.getAllMatches().size());
+        var sizeMatches = testSubject.getAllMatches().size();
+        assertEquals(4, sizeMatches );
     }
 
     @Test(expected = IllegalArgumentException.class)

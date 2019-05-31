@@ -11,6 +11,9 @@ public class SettingView {
     private int countPrizePlace;
     private TournamentTimeSetting tournamentTimeSetting;
 
+    public SettingView() {
+    }
+
     public SettingView(long idTournament, String typeScheme, int countPlayers, MatchTimeSettingView mathTimeSetting, int countPrizePlace, TournamentTimeSetting tournamentTimeSetting) {
         this.idTournament = idTournament;
         this.typeScheme = typeScheme;

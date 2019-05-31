@@ -21,9 +21,10 @@ public class Location {
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Tournament tournament;
 
+
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "match_id", referencedColumnName = "id")
-    private Match match;
+    @JoinColumn(name = "game_id", referencedColumnName = "id")
+    private Game game;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = true)
@@ -65,12 +66,12 @@ public class Location {
         this.tournament = tournament;
     }
 
-    public Match getMatch() {
-        return match;
+    public Game getGame() {
+        return game;
     }
 
-    public void setMatch(Match match) {
-        this.match = match;
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     public boolean isState() {

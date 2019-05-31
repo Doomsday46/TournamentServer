@@ -14,7 +14,7 @@ public class Player {
     public Player(String firstName, String lastName, LocalDate birthDate){
         if (firstName == null || lastName == null || birthDate == null) throw new NullPointerException();
         if (firstName.isEmpty() || lastName.isEmpty()) throw new IllegalArgumentException("Name of surname can't be empty");
-        if(LocalDate.now().getYear() - AGE_LIMIT < birthDate.getYear()) throw new IllegalArgumentException("The player is too young");
+        if (LocalDate.now().getYear() - AGE_LIMIT < birthDate.getYear()) throw new IllegalArgumentException("The player is too young");
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;

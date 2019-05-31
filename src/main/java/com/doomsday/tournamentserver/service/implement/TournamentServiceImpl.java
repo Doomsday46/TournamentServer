@@ -136,7 +136,7 @@ public class TournamentServiceImpl implements TournamentService {
             return false;
         }
 
-        return false;
+        return true;
     }
 
 

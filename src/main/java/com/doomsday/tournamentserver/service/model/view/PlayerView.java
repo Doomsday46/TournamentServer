@@ -1,5 +1,7 @@
 package com.doomsday.tournamentserver.service.model.view;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class PlayerView {
@@ -7,7 +9,12 @@ public class PlayerView {
     private long idTournament;
     private String firstName;
     private String secondName;
+    @JsonFormat
+            (shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date birthDay;
+
+    public PlayerView() {
+    }
 
     public PlayerView(long idTournament, String firstName, String secondName, Date birthDay) {
         this.idTournament = idTournament;

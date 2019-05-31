@@ -9,6 +9,9 @@ public class LocationView {
     private String descriptionLocation;
     private boolean isBase;
 
+    public LocationView() {
+    }
+
     public LocationView(long idTournament, String nameLocation, String descriptionLocation, boolean isBase) {
         this.idTournament = idTournament;
         this.nameLocation = nameLocation;

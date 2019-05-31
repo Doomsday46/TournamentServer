@@ -18,7 +18,7 @@ import org.junit.runners.Suite;
         DomainDateServiceTests.class,
         DomainPlayerServiceTests.class,
         LocationTests.class,
-        OneOnOneMatchTests.class,
+        OneOnOneGameTests.class,
         PlayerTests.class,
         ScoreTests.class,
         PrizePlaceTests.class

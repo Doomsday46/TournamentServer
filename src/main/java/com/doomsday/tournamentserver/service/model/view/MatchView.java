@@ -8,6 +8,9 @@ public class MatchView {
     private int scoreSecondPlayer;
     private boolean isFinished;
 
+    public MatchView() {
+    }
+
     public MatchView(long idTournament, long idMatch, int scoreFirstPlayer, int scoreSecondPlayer, boolean isFinished) {
         this.idTournament = idTournament;
         this.idMatch = idMatch;

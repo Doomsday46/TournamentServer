@@ -1,10 +1,10 @@
 package com.doomsday.tournamentserver.db.repository;
 
-import com.doomsday.tournamentserver.db.Match;
+import com.doomsday.tournamentserver.db.Game;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Date;
 
-public interface MatchRepository extends JpaRepository<Match, Long> {
-    Match findByDate(Date date);
+public interface MatchRepository extends JpaRepository<Game, Long> {
+    Game findByDate(Date date);
 }

@@ -6,6 +6,9 @@ public class PrizePlaceView {
     private long idPlayer;
     private int prizePlaceNumber;
 
+    public PrizePlaceView() {
+    }
+
     public PrizePlaceView(long idTournament, long idPlayer, int prizePlaceNumber) {
         this.idTournament = idTournament;
         this.idPlayer = idPlayer;

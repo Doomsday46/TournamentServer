@@ -19,10 +19,12 @@ public class ScheduleImpl implements Schedule {
         if(checkSet.size() < matchesList.size()){
             throw new DuplicateFormatFlagsException("Matches list contains unallowed duplicates");
         }
+
         for (Match match: matchesList)
         {
             if (match == null) throw new NullPointerException();
         }
+
         this.matchesList = matchesList;
     }
 
@@ -39,7 +41,7 @@ public class ScheduleImpl implements Schedule {
     @Override
     public void addMatch(Match match) {
         if (match == null) throw new NullPointerException();
-        if (this.matchesList.contains(match)) throw new DuplicateFormatFlagsException("Duplicate matches is not allowed");
+        if (this.matchesList.contains(match)) throw new DuplicateFormatFlagsException("Duplicate games is not allowed");
         this.matchesList.add(match);
 
     }
@@ -48,7 +50,7 @@ public class ScheduleImpl implements Schedule {
     public void addMatches(List<Match> matches) {
         if(matches == null) throw new NullPointerException();
         if(matches.isEmpty()) throw new IllegalArgumentException("List is empty");
-        if (this.matchesList.containsAll(matches)) throw new DuplicateFormatFlagsException("Duplicate matches is not allowed");
+        if (this.matchesList.containsAll(matches)) throw new DuplicateFormatFlagsException("Duplicate games is not allowed");
         matchesList.addAll(matches);
     }
 

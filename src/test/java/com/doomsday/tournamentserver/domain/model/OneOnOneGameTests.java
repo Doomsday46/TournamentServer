@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
-public class OneOnOneMatchTests {
+public class OneOnOneGameTests {
 
     private Player testPlayer1, testPlayer2;
     private Match match;

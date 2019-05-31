@@ -1,11 +1,13 @@
 package com.doomsday.tournamentserver.db;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "tournament")
@@ -32,36 +34,44 @@ public class Tournament {
 
     @OneToMany(
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.EAGER,
+            mappedBy = "tournament"
     )
-    public List<PrizePlace> prizePlace = new ArrayList<PrizePlace>();
+    public Set<PrizePlace> prizePlace;
 
     @OneToMany(
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.EAGER,
+            mappedBy = "tournament"
     )
-    public List<Match> matches = new ArrayList<Match>();
+    public Set<Game> games;
 
     @OneToMany(
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.EAGER,
+            mappedBy = "tournament"
     )
-    public List<Location> locations = new ArrayList<Location>();
+    public Set<Location> locations;
 
     @OneToMany(
             cascade = CascadeType.ALL,
-            orphanRemoval = true
+            orphanRemoval = true,
+            fetch = FetchType.EAGER,
+            mappedBy = "tournament"
     )
-    public List<Player> players = new ArrayList<Player>();
+    public Set<Player> players;
 
     public Tournament() {
     }
 
-    public List<Location> getLocations() {
+    public Set<Location> getLocations() {
         return locations;
     }
 
-    public void setLocations(List<Location> locations) {
+    public void setLocations(Set<Location> locations) {
         this.locations = locations;
     }
 
@@ -97,27 +107,19 @@ public class Tournament {
         this.setting = setting;
     }
 
-    public List<PrizePlace> getPrizePlace() {
+    public Set<PrizePlace> getPrizePlace() {
         return prizePlace;
     }
 
-    public void setPrizePlace(List<PrizePlace> prizePlace) {
+    public void setPrizePlace(Set<PrizePlace> prizePlace) {
         this.prizePlace = prizePlace;
     }
 
-    public List<Match> getMatches() {
-        return matches;
-    }
-
-    public void setMatches(List<Match> matches) {
-        this.matches = matches;
-    }
-
-    public List<Player> getPlayers() {
+    public Set<Player> getPlayers() {
         return players;
     }
 
-    public void setPlayers(List<Player> players) {
+    public void setPlayers(Set<Player> players) {
         this.players = players;
     }
 
@@ -127,5 +129,17 @@ public class Tournament {
 
     public void setFinished(boolean finished) {
         this.finished = finished;
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public Set<Game> getGames() {
+        return games;
+    }
+
+    public void setGames(Set<Game> games) {
+        this.games = games;
     }
 }

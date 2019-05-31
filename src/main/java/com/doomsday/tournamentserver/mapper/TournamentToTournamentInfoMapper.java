@@ -3,6 +3,7 @@ package com.doomsday.tournamentserver.mapper;
 import com.doomsday.tournamentserver.db.Tournament;
 import com.doomsday.tournamentserver.service.model.information.LocationViewInformation;
 import com.doomsday.tournamentserver.service.model.information.PlayerViewInformation;
+import com.doomsday.tournamentserver.service.model.information.SettingInformation;
 import com.doomsday.tournamentserver.service.model.information.TournamentInformation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,8 +42,12 @@ public class TournamentToTournamentInfoMapper implements Mapper<TournamentInform
             var locationInfo = locationToLocationInfoMapper.map(location);
             if (!locationInfoList.contains(locationInfo)) locationInfoList.add(locationInfo);
         });
+        SettingInformation settingInfo = null;
+        if (tournament.getSetting() != null) {
 
-        var settingInfo = settingToSettingInfoMapper.map(tournament.getSetting());
+            settingInfo = settingToSettingInfoMapper.map(tournament.getSetting());
+
+        }
 
         return new TournamentInformation(tournament.getId(), tournament.getName(), settingInfo, object.finished, playerInfoList, locationInfoList);
     }

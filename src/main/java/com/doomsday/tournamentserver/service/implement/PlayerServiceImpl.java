@@ -47,7 +47,7 @@ public class PlayerServiceImpl implements PlayerService {
             return false;
         }
 
-        return false;
+        return true;
     }
 
     @Override
@@ -68,7 +68,7 @@ public class PlayerServiceImpl implements PlayerService {
             return false;
         }
 
-        return false;
+        return true;
     }
 
     @Override
@@ -84,7 +84,7 @@ public class PlayerServiceImpl implements PlayerService {
             return false;
         }
 
-        return false;
+        return true;
     }
 
     @Override
@@ -99,7 +99,7 @@ public class PlayerServiceImpl implements PlayerService {
             return false;
         }
 
-        return false;
+        return true;
     }
 
     @Override

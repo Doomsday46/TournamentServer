@@ -5,9 +5,7 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "player")
@@ -31,8 +29,9 @@ public class Player {
     @OnDelete(action = OnDeleteAction.NO_ACTION)
     private Tournament tournament;
 
-    @ManyToMany
-    private List<Match> match = new ArrayList<Match>();
+
+    @ManyToMany(mappedBy = "players")
+    private Set<Game> games = new HashSet<Game>();
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = true)
@@ -98,12 +97,12 @@ public class Player {
         this.tournament = tournament;
     }
 
-    public List<Match> getMatch() {
-        return match;
+    public Set<Game> getGames() {
+        return games;
     }
 
-    public void setMatch(List<Match> match) {
-        this.match = match;
+    public void setGames(Set<Game> games) {
+        this.games = games;
     }
 
     public User getUser() {

@@ -10,6 +10,9 @@ public class TournamentView {
     private List<Integer> playersId;
     private List<Integer> locationsId;
 
+    public TournamentView() {
+    }
+
     public TournamentView(String nameTournament, boolean isFinished, SettingView settingView, List<Integer> playersId, List<Integer> locationsId) {
         this.nameTournament = nameTournament;
         this.isFinished = isFinished;

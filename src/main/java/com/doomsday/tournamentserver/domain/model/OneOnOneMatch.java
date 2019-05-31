@@ -30,7 +30,7 @@ public class OneOnOneMatch implements Match{
 
     @Override
     public Player getWinner()throws PlayedMatchException{
-        if (!isPlayed()) throw new PlayedMatchException("Match didn't played");
+        if (!isPlayed()) throw new PlayedMatchException("Game didn't played");
         return (this.score.getPointsFirstSide() > this.score.getPointsSecondSide()) ? this.firstSide : this.secondSide;
     }
 
@@ -67,7 +67,7 @@ public class OneOnOneMatch implements Match{
     @Override
     public void setPoints(int pointsFirstSide, int pointsSecondSide) throws PlayedMatchException {
         if (!isPlayed()) this.score.setPoints(pointsFirstSide, pointsSecondSide);
-        else throw new PlayedMatchException("Match is already played");
+        else throw new PlayedMatchException("Game is already played");
     }
 
     @Override

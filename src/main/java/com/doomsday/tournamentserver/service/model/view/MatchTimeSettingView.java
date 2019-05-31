@@ -6,6 +6,9 @@ public class MatchTimeSettingView {
     private int durationMatchMinute;
     private int durationMatchSeconds;
 
+    public MatchTimeSettingView() {
+    }
+
     public MatchTimeSettingView(int durationMatchHour, int durationMatchMinute, int durationMatchSeconds) {
         this.durationMatchHour = durationMatchHour;
         this.durationMatchMinute = durationMatchMinute;

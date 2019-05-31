@@ -5,13 +5,11 @@ import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
-@Table(name = "match")
-public class Match {
+@Table(name = "game")
+public class Game {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,9 +31,13 @@ public class Match {
     private Tournament tournament;
 
     @ManyToMany
-    private List<Player> players = new ArrayList<Player>();
+    @JoinTable(
+            name = "player_game",
+            joinColumns = @JoinColumn(name = "game_id"),
+            inverseJoinColumns = @JoinColumn(name = "player_id"))
+    private Set<Player> players = new HashSet<Player>();
 
-    public Match() {
+    public Game() {
     }
 
     public long getId() {
@@ -94,11 +96,11 @@ public class Match {
         this.tournament = tournament;
     }
 
-    public List<Player> getPlayers() {
+    public Set<Player> getPlayers() {
         return players;
     }
 
-    public void setPlayers(List<Player> players) {
+    public void setPlayers(Set<Player> players) {
         this.players = players;
     }
 }

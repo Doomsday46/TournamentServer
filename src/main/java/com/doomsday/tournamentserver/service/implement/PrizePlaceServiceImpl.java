@@ -38,7 +38,7 @@ public class PrizePlaceServiceImpl implements PrizePlaceService {
             return false;
         }
 
-        return false;
+        return true;
     }
 
     @Override

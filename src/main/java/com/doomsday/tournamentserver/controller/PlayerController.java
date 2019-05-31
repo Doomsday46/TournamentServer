@@ -12,6 +12,8 @@ import com.doomsday.tournamentserver.service.model.information.PlayerViewInforma
 import com.doomsday.tournamentserver.service.model.view.PlayerView;
 import com.doomsday.tournamentserver.validator.PlayerViewValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -54,96 +56,99 @@ public class PlayerController {
     }
 
     @RequestMapping(value = {"/api/tournament/players/"}, method = RequestMethod.POST)
-    public Response savePlayer(@RequestBody PlayerView playerView) {
+    public ResponseEntity<Response> savePlayer(@RequestBody PlayerView playerView) {
         if (!playerViewValidator.setModel(playerView).isValid())
-            return new Response<>(400, new Information(playerViewValidator.message()));
+            return new ResponseEntity<>(new Response<>(400, new Information(playerViewValidator.message())), HttpStatus.BAD_REQUEST);
 
         User user = userService.findByUsername(templateHelper.getUsername());
 
         try {
             boolean isAdd = playerService.savePlayer(user.getId(), playerView);
-            if (!isAdd) return getResponse(400, new Information(getMessage("saveModel.error")));
-            return getResponse(200, new Information(getMessage("successful")));
+            if (!isAdd) return new ResponseEntity<>(getResponse(400, new Information(getMessage("saveModel.error"))), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(getResponse(200, new Information(getMessage("successful"))), HttpStatus.OK);
         } catch(Exception ex) {
-            return getResponse(400, new Information(ex.getMessage()));
+            return new ResponseEntity<>(getResponse(400, new Information(ex.getMessage())), HttpStatus.BAD_REQUEST);
         }
     }
 
     @RequestMapping(value = {"/api/tournament/players/{idPlayer}"}, method = RequestMethod.PUT)
-    public Response updatePlayer(@RequestBody PlayerView playerView, @PathVariable long idPlayer) {
+    public ResponseEntity<Response> updatePlayer(@RequestBody PlayerView playerView, @PathVariable long idPlayer) {
 
         if (!playerViewValidator.setModel(playerView).isValid())
-            return new Response<>(400, new Information(playerViewValidator.message()));
+            return new ResponseEntity<>(new Response<>(400, new Information(playerViewValidator.message())), HttpStatus.BAD_REQUEST);
 
         User user = userService.findByUsername(templateHelper.getUsername());
         try {
             if (idPlayer <= 0 || playerService.getPlayer(user.getId(), playerView.getIdTournament(), idPlayer) == null)
-                return getResponse(400, new Information(getMessage("updateModel.error.noFindPlayer")));
+                return new ResponseEntity<>(getResponse(400, new Information(getMessage("updateModel.error.noFindPlayer"))), HttpStatus.BAD_REQUEST);
 
             boolean isUpdate = playerService.updatePlayerInformation(user.getId(), idPlayer, playerView);
-            if (!isUpdate) return getResponse(400, new Information(getMessage("updateModel.error")));
+            if (!isUpdate) return new ResponseEntity<>(getResponse(400, new Information(getMessage("updateModel.error"))), HttpStatus.BAD_REQUEST);
 
             var playerViewInformation = playerToPlayerInfoMapper.map(playerService.getPlayer(user.getId(), playerView.getIdTournament(), idPlayer));
 
-            return getResponsePlayerViewInformation(200, new Information(getMessage("successful")), playerViewInformation);
+            return new ResponseEntity<>(getResponsePlayerViewInformation(200, new Information(getMessage("successful")), playerViewInformation), HttpStatus.OK);
 
         } catch(Exception ex) {
-            return getResponse(400, new Information(ex.getMessage()));
+            return new ResponseEntity<>(getResponse(400, new Information(ex.getMessage())), HttpStatus.BAD_REQUEST);
         }
     }
 
     @RequestMapping(value = {"/api/tournament/players/{idTournament}/{idPlayer}"}, method = RequestMethod.GET)
-    public Response getPlayer(@PathVariable long idPlayer, @PathVariable long idTournament) {
+    public ResponseEntity<Response> getPlayer(@PathVariable long idPlayer, @PathVariable long idTournament) {
         User user = userService.findByUsername(templateHelper.getUsername());
 
-        if (idPlayer <= 0 || idTournament <= 0) return getResponse(400, new Information(getMessage("argument.error.id")));
+        if (idPlayer <= 0 || idTournament <= 0)
+            return new ResponseEntity<>(getResponse(400, new Information(getMessage("argument.error.id"))), HttpStatus.BAD_REQUEST);
 
         var player = playerService.getPlayer(user.getId(), idTournament, idPlayer);
 
-        if (player == null) return getResponse(400, new Information(getMessage("data.null")));
+        if (player == null)
+            return new ResponseEntity<>(getResponse(400, new Information(getMessage("data.null"))), HttpStatus.BAD_REQUEST);
 
         try {
             var playerInformation = playerToPlayerInfoMapper.map(player);
-            return getResponsePlayerViewInformation(200, new Information(getMessage("successful")), playerInformation);
+            return new ResponseEntity<>(getResponsePlayerViewInformation(200, new Information(getMessage("successful")), playerInformation), HttpStatus.OK);
         }   catch(Exception ex)  {
-            return getResponse(400, new Information(ex.getMessage()));
+            return new ResponseEntity<>(getResponse(400, new Information(ex.getMessage())), HttpStatus.BAD_REQUEST);
         }
     }
 
     @RequestMapping(value = {"/api/tournament/players/{idTournament}"}, method = RequestMethod.GET)
-    public Response getPlayers(@PathVariable long idTournament) {
+    public ResponseEntity<Response> getPlayers(@PathVariable long idTournament) {
         User user = userService.findByUsername(templateHelper.getUsername());
 
-        if (idTournament <= 0) return getResponse(400, new Information(getMessage("argument.error.id")));
+        if (idTournament <= 0)
+            return new ResponseEntity<>(getResponse(400, new Information(getMessage("argument.error.id"))), HttpStatus.BAD_REQUEST);
 
         var players = playerService.getPlayers(user.getId(), idTournament);
 
-        if (players == null) return getResponse(400, new Information(getMessage("data.null")));
+        if (players == null)
+            return new ResponseEntity<>(getResponse(400, new Information(getMessage("data.null"))), HttpStatus.BAD_REQUEST);
 
         var playersInformation = new ArrayList<PlayerViewInformation>();
 
         try {
             players.forEach(a -> { if (!playersInformation.contains(a)) playersInformation.add(playerToPlayerInfoMapper.map(a)); });
-            return new Response<>(200, new Information(getMessage("successful")), playersInformation);
+            return new ResponseEntity<>(new Response<>(200, new Information(getMessage("successful")), playersInformation), HttpStatus.OK);
         }   catch(Exception ex)  {
-            return getResponse(400, new Information(ex.getMessage()));
+            return new ResponseEntity<>(getResponse(400, new Information(ex.getMessage())), HttpStatus.BAD_REQUEST);
         }
     }
 
     @RequestMapping(value = {"/api/tournament/players/{idTournament}/{idPlayer}"}, method = RequestMethod.DELETE)
-    public Response deletePlayer(@PathVariable long idTournament, @PathVariable long idPlayer) {
+    public ResponseEntity<Response> deletePlayer(@PathVariable long idTournament, @PathVariable long idPlayer) {
         User user = userService.findByUsername(templateHelper.getUsername());
 
-        if (idPlayer <= 0 || idTournament <= 0) return getResponse(400, new Information(getMessage("argument.error.id")));
-
+        if (idPlayer <= 0 || idTournament <= 0)
+            return new ResponseEntity<>(getResponse(400, new Information(getMessage("argument.error.id"))), HttpStatus.BAD_REQUEST);
         try {
             var isDelete = playerService.remove(user.getId(), idTournament, idPlayer);
-
-            if (!isDelete) return getResponse(400, new Information(getMessage("deleteModel.error")));
-
-            return getResponse(200, new Information(getMessage("successful")));
+            if (!isDelete)
+                return new ResponseEntity<>(getResponse(400, new Information(getMessage("deleteModel.error"))), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(getResponse(200, new Information(getMessage("successful"))), HttpStatus.OK);
         }   catch(Exception ex)  {
-            return getResponse(400, new Information(ex.getMessage()));
+            return new ResponseEntity<>(getResponse(400, new Information(ex.getMessage())), HttpStatus.BAD_REQUEST);
         }
     }
 
