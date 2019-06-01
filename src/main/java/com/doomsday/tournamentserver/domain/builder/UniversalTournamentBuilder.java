@@ -1,25 +1,15 @@
 package com.doomsday.tournamentserver.domain.builder;
 
-import com.doomsday.tournamentserver.db.Player;
-import com.doomsday.tournamentserver.domain.model.Location;
 import com.doomsday.tournamentserver.domain.schedule.Schedule;
 import com.doomsday.tournamentserver.domain.schedule.ScheduleGenerator;
-import com.doomsday.tournamentserver.domain.schedule.ScheduleGeneratorImpl;
-import com.doomsday.tournamentserver.domain.scheme.Scheme;
 import com.doomsday.tournamentserver.domain.scheme.SchemeStrategy;
 import com.doomsday.tournamentserver.domain.scheme.SchemeType;
 import com.doomsday.tournamentserver.domain.service.*;
-import com.doomsday.tournamentserver.domain.setting.TimeSetting;
 import com.doomsday.tournamentserver.domain.tournament.*;
 import com.doomsday.tournamentserver.domain.winneridentifier.WinnerIdentifierStrategy;
-import com.doomsday.tournamentserver.mapper.LocationViewInformationToLocationDomainMapper;
-import com.doomsday.tournamentserver.mapper.PlayerViewInformationToPlayerDomainMapper;
-import com.doomsday.tournamentserver.service.model.information.TournamentInformation;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
 public class UniversalTournamentBuilder implements TournamentBuilder{
 
@@ -32,11 +22,11 @@ public class UniversalTournamentBuilder implements TournamentBuilder{
     private TournamentSetting tournamentSetting;
     private TournamentInfo tournamentInfo;
 
-    private com.doomsday.tournamentserver.db.Tournament tournamentDB;
+    private com.doomsday.tournamentserver.db.Entity.Tournament tournamentDB;
 
 
 
-    public UniversalTournamentBuilder(com.doomsday.tournamentserver.db.Tournament tournamentDB){
+    public UniversalTournamentBuilder(com.doomsday.tournamentserver.db.Entity.Tournament tournamentDB){
         this.tournamentDB = tournamentDB;
     }
 

@@ -7,9 +7,9 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 @Service
-public class PlayerDBToPlayerDomainMapper implements Mapper<Player, com.doomsday.tournamentserver.db.Player> {
+public class PlayerDBToPlayerDomainMapper implements Mapper<Player, com.doomsday.tournamentserver.db.Entity.Player> {
     @Override
-    public Player map(com.doomsday.tournamentserver.db.Player object) {
+    public Player map(com.doomsday.tournamentserver.db.Entity.Player object) {
         var player = new Player(object.getFirstName(),object.getSurname(), convertToLocalDateViaInstant(object.getAge()));
 
         return player;

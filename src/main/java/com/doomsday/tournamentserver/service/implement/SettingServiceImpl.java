@@ -1,6 +1,6 @@
 package com.doomsday.tournamentserver.service.implement;
 
-import com.doomsday.tournamentserver.db.Setting;
+import com.doomsday.tournamentserver.db.Entity.Setting;
 import com.doomsday.tournamentserver.db.repository.SettingRepository;
 import com.doomsday.tournamentserver.db.repository.TournamentRepository;
 import com.doomsday.tournamentserver.db.repository.UserRepository;

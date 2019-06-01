@@ -2,7 +2,7 @@ package com.doomsday.tournamentserver.controller;
 
 import com.doomsday.tournamentserver.controller.response.Information;
 import com.doomsday.tournamentserver.controller.response.Response;
-import com.doomsday.tournamentserver.db.User;
+import com.doomsday.tournamentserver.db.Entity.User;
 import com.doomsday.tournamentserver.localization.TextProgram;
 import com.doomsday.tournamentserver.mapper.LocationToLocationInfoMapper;
 import com.doomsday.tournamentserver.service.LocationService;

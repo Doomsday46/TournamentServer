@@ -1,4 +1,4 @@
-package com.doomsday.tournamentserver.db;
+package com.doomsday.tournamentserver.db.Entity;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

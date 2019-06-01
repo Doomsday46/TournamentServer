@@ -1,8 +1,8 @@
 package com.doomsday.tournamentserver.service.implement;
 
-import com.doomsday.tournamentserver.db.Role;
-import com.doomsday.tournamentserver.db.RoleName;
-import com.doomsday.tournamentserver.db.User;
+import com.doomsday.tournamentserver.db.Entity.Role;
+import com.doomsday.tournamentserver.db.Entity.RoleName;
+import com.doomsday.tournamentserver.db.Entity.User;
 import com.doomsday.tournamentserver.db.repository.RoleRepository;
 import com.doomsday.tournamentserver.service.SecurityService;
 import com.doomsday.tournamentserver.service.TemplateHelper;

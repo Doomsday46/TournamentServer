@@ -9,16 +9,18 @@ public class TournamentView {
     private SettingView settingView;
     private List<Integer> playersId;
     private List<Integer> locationsId;
+    private boolean started;
 
     public TournamentView() {
     }
 
-    public TournamentView(String nameTournament, boolean isFinished, SettingView settingView, List<Integer> playersId, List<Integer> locationsId) {
+    public TournamentView(String nameTournament, boolean isFinished, SettingView settingView, List<Integer> playersId, List<Integer> locationsId,boolean started) {
         this.nameTournament = nameTournament;
         this.isFinished = isFinished;
         this.settingView = settingView;
         this.playersId = playersId;
         this.locationsId = locationsId;
+        this.started = started;
     }
 
     public String getNameTournament() {
@@ -39,5 +41,13 @@ public class TournamentView {
 
     public boolean isFinished() {
         return isFinished;
+    }
+
+    public boolean isStarted() {
+        return started;
+    }
+
+    public void setStarted(boolean started) {
+        this.started = started;
     }
 }

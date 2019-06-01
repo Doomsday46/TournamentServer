@@ -1,6 +1,6 @@
 package com.doomsday.tournamentserver.db.repository;
 
-import com.doomsday.tournamentserver.db.Tournament;
+import com.doomsday.tournamentserver.db.Entity.Tournament;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

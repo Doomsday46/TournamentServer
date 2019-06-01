@@ -1,4 +1,4 @@
-package com.doomsday.tournamentserver.db;
+package com.doomsday.tournamentserver.db.Entity;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -16,6 +16,9 @@ public class Tournament {
 
     @Column
     public String name;
+
+    @Column
+    public boolean started;
 
     @Column
     public boolean finished;
@@ -137,5 +140,13 @@ public class Tournament {
 
     public void setGames(Set<Game> games) {
         this.games = games;
+    }
+
+    public boolean isStarted() {
+        return started;
+    }
+
+    public void setStarted(boolean started) {
+        this.started = started;
     }
 }

@@ -1,8 +1,8 @@
 package com.doomsday.tournamentserver.service;
 
 
-import com.doomsday.tournamentserver.db.Role;
-import com.doomsday.tournamentserver.db.User;
+import com.doomsday.tournamentserver.db.Entity.Role;
+import com.doomsday.tournamentserver.db.Entity.User;
 
 public interface RoleService {
     Role findRoleByName(String name);

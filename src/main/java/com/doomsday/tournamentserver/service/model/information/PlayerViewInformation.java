@@ -5,14 +5,16 @@ import java.util.Date;
 public class PlayerViewInformation {
 
     private long idTournament;
+    private long id;
     private String firstName;
     private String secondName;
     private Date birthDay;
 
     private int numberPlayerInTournament;
 
-    public PlayerViewInformation(long idTournament, String firstName, String secondName, Date birthDay, int numberPlayerInTournament) {
+    public PlayerViewInformation(long idTournament, long id, String firstName, String secondName, Date birthDay, int numberPlayerInTournament) {
         this.idTournament = idTournament;
+        this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
         this.birthDay = birthDay;
@@ -37,5 +39,9 @@ public class PlayerViewInformation {
 
     public int getNumberPlayerInTournament() {
         return numberPlayerInTournament;
+    }
+
+    public long getId() {
+        return id;
     }
 }

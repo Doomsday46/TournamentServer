@@ -1,7 +1,7 @@
 package com.doomsday.tournamentserver.service;
 
 
-import com.doomsday.tournamentserver.db.User;
+import com.doomsday.tournamentserver.db.Entity.User;
 
 import java.util.List;
 

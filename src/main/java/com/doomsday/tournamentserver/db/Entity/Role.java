@@ -1,4 +1,4 @@
-package com.doomsday.tournamentserver.db;
+package com.doomsday.tournamentserver.db.Entity;
 
 import javax.persistence.*;
 import java.util.Objects;

@@ -1,6 +1,6 @@
 package com.doomsday.tournamentserver.controller;
 
-import com.doomsday.tournamentserver.db.User;
+import com.doomsday.tournamentserver.db.Entity.User;
 import com.doomsday.tournamentserver.service.SecurityService;
 import com.doomsday.tournamentserver.service.UserService;
 import com.doomsday.tournamentserver.service.implement.UserValidator;

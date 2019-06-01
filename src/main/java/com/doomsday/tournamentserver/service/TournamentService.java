@@ -1,6 +1,6 @@
 package com.doomsday.tournamentserver.service;
 
-import com.doomsday.tournamentserver.db.Tournament;
+import com.doomsday.tournamentserver.db.Entity.Tournament;
 import com.doomsday.tournamentserver.service.model.information.SchemeInformation;
 import com.doomsday.tournamentserver.service.model.information.TournamentInformation;
 import com.doomsday.tournamentserver.service.model.information.TournamentSaveInformation;
@@ -12,7 +12,6 @@ import java.util.List;
 public interface TournamentService {
     TournamentSaveInformation saveTournament(long idUser, String name);
     long saveTournament(long idUser, TournamentView tournamentView);
-    boolean createTournament(long idUser, long idTournament);
     boolean updateDataForTournament(long idUser, long idTournament, TournamentView tournamentView);
     boolean deleteTournament(long idUser, long idTournament);
     Tournament getTournament(long idUser, long idTournament);

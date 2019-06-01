@@ -1,6 +1,6 @@
 package com.doomsday.tournamentserver.mapper;
 
-import com.doomsday.tournamentserver.db.Player;
+import com.doomsday.tournamentserver.db.Entity.Player;
 import com.doomsday.tournamentserver.service.model.information.PlayerViewInformation;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +13,6 @@ public class PlayerToPlayerInfoMapper implements Mapper<PlayerViewInformation, P
 
         var player = (Player) object;
 
-        return new PlayerViewInformation(player.getId(), player.getFirstName(), player.getSurname(), player.getAge(), player.getNumber());
+        return new PlayerViewInformation(player.getId(), player.getId(), player.getFirstName(), player.getSurname(), player.getAge(), player.getNumber());
     }
 }

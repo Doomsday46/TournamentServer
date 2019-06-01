@@ -1,6 +1,6 @@
 package com.doomsday.tournamentserver.mapper;
 
-import com.doomsday.tournamentserver.db.Tournament;
+import com.doomsday.tournamentserver.db.Entity.Tournament;
 import com.doomsday.tournamentserver.service.model.view.TournamentView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +22,7 @@ public class TournamentViewToTournamentMapper implements Mapper<Tournament, Tour
 
         tournament.setName(object.getNameTournament());
         tournament.setFinished(object.isFinished());
+        tournament.setStarted(object.isStarted());
 
         if (object.getSettingView() == null) {
             return tournament;

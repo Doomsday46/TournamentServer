@@ -2,12 +2,13 @@ package com.doomsday.tournamentserver.controller;
 
 import com.doomsday.tournamentserver.controller.response.Information;
 import com.doomsday.tournamentserver.controller.response.Response;
-import com.doomsday.tournamentserver.db.User;
+import com.doomsday.tournamentserver.db.Entity.User;
 import com.doomsday.tournamentserver.localization.TextProgram;
 import com.doomsday.tournamentserver.mapper.TournamentToTournamentInfoMapper;
 import com.doomsday.tournamentserver.service.TemplateHelper;
 import com.doomsday.tournamentserver.service.TournamentService;
 import com.doomsday.tournamentserver.service.UserService;
+import com.doomsday.tournamentserver.service.implement.TournamentManagerImplService;
 import com.doomsday.tournamentserver.service.model.information.TournamentInformation;
 import com.doomsday.tournamentserver.service.model.information.TournamentSaveInformation;
 import com.doomsday.tournamentserver.service.model.view.TournamentView;
@@ -32,14 +33,16 @@ public class TournamentController {
     private final TemplateHelper templateHelper;
     private final TextProgram textProgram;
     private final TournamentToTournamentInfoMapper tournamentToTournamentInfoMapper;
+    private final TournamentManagerImplService tournamentManagerImplService;
 
     @Autowired
-    public TournamentController(TournamentService tournamentService, TournamentViewValidator tournamentViewValidator, UserService userService, TemplateHelper templateHelper, TournamentToTournamentInfoMapper tournamentToTournamentInfoMapper) {
+    public TournamentController(TournamentService tournamentService, TournamentViewValidator tournamentViewValidator, UserService userService, TemplateHelper templateHelper, TournamentToTournamentInfoMapper tournamentToTournamentInfoMapper, TournamentManagerImplService tournamentManagerImplService) {
         this.tournamentService = tournamentService;
         this.tournamentViewValidator = tournamentViewValidator;
         this.userService = userService;
         this.templateHelper = templateHelper;
         this.tournamentToTournamentInfoMapper = tournamentToTournamentInfoMapper;
+        this.tournamentManagerImplService = tournamentManagerImplService;
 
         this.textProgram = new TextProgram("textResponse", Locale.ENGLISH);
     }
@@ -89,7 +92,7 @@ public class TournamentController {
 
         try {
 
-            var isCreate = tournamentService.createTournament(user.getId(), idTournament);
+            var isCreate = tournamentManagerImplService.createTournament(user.getId(), idTournament);
 
             if (!isCreate) return new ResponseEntity<>(getResponse(400, new Information("failed")), HttpStatus.BAD_REQUEST);
             return new ResponseEntity<>(getResponse(200, new Information("successfull")), HttpStatus.OK);

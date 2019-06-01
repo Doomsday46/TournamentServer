@@ -1,6 +1,6 @@
 package com.doomsday.tournamentserver.service;
 
-import com.doomsday.tournamentserver.db.Location;
+import com.doomsday.tournamentserver.db.Entity.Location;
 import com.doomsday.tournamentserver.service.model.view.LocationView;
 
 import java.util.List;
