@@ -39,6 +39,13 @@ public class Game {
             inverseJoinColumns = @JoinColumn(name = "player_id"))
     private Set<Player> players = new HashSet<Player>();
 
+    @Column
+    private int numberFirstSide;
+    @Column
+    private int numberSecondSide;
+
+    @Column
+    private long winnerId;
 
     public Game() {
     }
@@ -107,5 +114,27 @@ public class Game {
         this.players = players;
     }
 
+    public int getNumberFirstSide() {
+        return numberFirstSide;
+    }
 
+    public void setNumberFirstSide(int numberFirstSide) {
+        this.numberFirstSide = numberFirstSide;
+    }
+
+    public int getNumberSecondSide() {
+        return numberSecondSide;
+    }
+
+    public void setNumberSecondSide(int numberSecondSide) {
+        this.numberSecondSide = numberSecondSide;
+    }
+
+    public long getWinnerId() {
+        return winnerId;
+    }
+
+    public void setWinnerId(long winnerId) {
+        this.winnerId = winnerId;
+    }
 }

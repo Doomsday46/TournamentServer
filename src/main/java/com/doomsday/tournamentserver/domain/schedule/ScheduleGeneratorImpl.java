@@ -65,6 +65,23 @@ public class ScheduleGeneratorImpl implements ScheduleGenerator{
         return getSchedule(existingSchedule, winnersList);
     }
 
+    @Override
+    public Schedule recoverySchedule(List<Match> matchList) {
+        List<Integer> winnersList = new ArrayList<>();
+
+        for (var match: matchList) {
+            if (match.isPlayed())
+                winnersList.add(match.getWinner().getNumber());
+        }
+
+        if (winnersList.size() != 0) this.tournamentScheme.updateScheme(winnersList);
+
+        Schedule recoverySchedule = new ScheduleImpl();
+        recoverySchedule.addMatches(matchList);
+
+        return recoverySchedule;
+    }
+
     private List<Match> createMatches()
     {
         List<Match> matchesList = new ArrayList<>();

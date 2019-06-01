@@ -6,10 +6,10 @@ import com.doomsday.tournamentserver.db.Entity.Tournament;
 import com.doomsday.tournamentserver.db.repository.*;
 import com.doomsday.tournamentserver.domain.builder.TournamentBuilder;
 import com.doomsday.tournamentserver.domain.builder.UniversalTournamentBuilder;
-import com.doomsday.tournamentserver.domain.model.Location;
-import com.doomsday.tournamentserver.domain.model.Match;
-import com.doomsday.tournamentserver.domain.model.Player;
+import com.doomsday.tournamentserver.domain.model.*;
+import com.doomsday.tournamentserver.domain.schedule.Schedule;
 import com.doomsday.tournamentserver.domain.schedule.ScheduleGeneratorImpl;
+import com.doomsday.tournamentserver.domain.schedule.ScheduleImpl;
 import com.doomsday.tournamentserver.domain.scheme.SchemeStrategy;
 import com.doomsday.tournamentserver.domain.scheme.SchemeType;
 import com.doomsday.tournamentserver.domain.service.DomainDateService;
@@ -21,14 +21,17 @@ import com.doomsday.tournamentserver.mapper.PlayerDBToPlayerDomainMapper;
 import com.doomsday.tournamentserver.service.TournamentManagerService;
 import com.doomsday.tournamentserver.service.model.view.MatchView;
 import com.doomsday.tournamentserver.validator.TournamentValidator;
+import org.hibernate.mapping.OneToOne;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.*;
-
+import java.util.stream.Collectors;
+@Service
 public class TournamentManagerImplService implements TournamentManagerService {
 
     private TournamentRepository tournamentRepository;
@@ -53,14 +56,162 @@ public class TournamentManagerImplService implements TournamentManagerService {
     }
 
     @Override
-    public void finishMatch(MatchView matchView) {
+    public boolean finishMatch(long idUser, MatchView matchView) {
+       var tournamentDB = tournamentRepository.findByIdAndUser_Id(matchView.getIdTournament(), idUser);
+       if (tournamentDB.isFinished() || !tournamentDB.isStarted()) return false;
+       var tournamentDomain = recoveryTournament(tournamentDB);
+       tournamentDomain.start();
+
+       var game = tournamentDB.getGames().stream().filter(a -> a.getId() == matchView.getIdMatch()).findFirst().get();
+       game.setState(true);
+       game.setScoreFirstSide(matchView.getScoreFirstPlayer());
+       game.setScoreSecondSide(matchView.getScoreSecondPlayer());
+       var match = createMatch(game);
+
+       tournamentDomain.finishMatch(match, new Score(game.getScoreFirstSide(), game.getScoreSecondSide()));
+
+        var isFinished = tournamentDomain.getSchedule().getMatchesByState(MatchState.NOTPLAYED).size() == 0;
+
+        if (isFinished) {
+            finishTournament(tournamentDB, tournamentDomain);
+            updateLocations(tournamentDB, tournamentDomain);
+            updateGames(tournamentDB, tournamentDomain);
+            return true;
+        }
+
+        updateLocations(tournamentDB, tournamentDomain);
+        updateGames(tournamentDB, tournamentDomain);
+
+       return true;
+    }
+
+    private void finishTournament(Tournament tournament, com.doomsday.tournamentserver.domain.tournament.Tournament tournamentDomain){
+        tournamentDomain.finish();
+        var winnerList = tournamentDomain.getPrizePlace();
+
+        var prizePlaces = tournament.getPrizePlace();
+
+        for (var prizePlace: prizePlaces) {
+            var winnerPrizePlace = winnerList.stream().filter(a -> a.getPrizePlace() == prizePlace.getNumber()).findFirst().get();
+            var player = tournament.getPlayers().stream().filter(a -> a.getFirstName().equals(winnerPrizePlace.getPlayer().getFirstName())
+            && a.getSurname().equals(winnerPrizePlace.getPlayer().getLastName()) && a.getNumber() == winnerPrizePlace.getPlayer().getNumber()).findFirst().get();
+
+            prizePlace.setPlayer(player);
+        }
+
+        tournament.setFinished(true);
+        tournament.setPrizePlace(prizePlaces);
+        tournamentRepository.saveAndFlush(tournament);
+    }
+
+    private List<Match> updateMatches(List<Game> games, List<Match> matches){
+        /*
+        for (var match: matches) {
+            boolean exist = games.stream().anyMatch(a -> a.getNumberFirstSide() == match.getFirstSide().getNumber()
+                    && a.getNumberSecondSide() == match.getSecondSide().getNumber() && a.getDate().equals(convertToDateViaSqlTimestamp(match.getDate())));
+            if (exist) {
+                var game = games.stream().filter(a -> a.getNumberFirstSide() == match.getFirstSide().getNumber()
+                        && a.getNumberSecondSide() == match.getSecondSide().getNumber() && a.getDate().equals(convertToDateViaSqlTimestamp(match.getDate()))).findFirst().get();
+                var matchState = game.isState() ? MatchState.PLAYED : MatchState.NOTPLAYED;
+                match.setMatchState(matchState);
+                match.
+            }
+        }
+        */
+        return null;
+    }
+
+    private void updateGames(Tournament tournament, com.doomsday.tournamentserver.domain.tournament.Tournament tournamentDomain){
+        var games = tournament.getGames();
+        var matches = tournamentDomain.getSchedule().getAllMatches();
+
+        var updateGames = matches.stream().map(a -> createGame(a, tournament)).collect(Collectors.toList());
+
+        for (var game: updateGames) {
+            if (games.stream().anyMatch(a -> a.getDate().equals(game.getDate()) && a.getNumberSecondSide() == game.getNumberSecondSide()
+            && a.getNumberFirstSide() == game.getNumberFirstSide() )) {
+                var _game = games.stream().filter(a -> a.getDate().equals(game.getDate()) && a.getNumberSecondSide() == game.getNumberSecondSide()
+                        && a.getNumberFirstSide() == game.getNumberFirstSide()).findFirst().get();
+
+                _game.setScoreSecondSide(game.getScoreSecondSide());
+                _game.setScoreFirstSide(game.getScoreFirstSide());
+                _game.setState(game.isState());
+                _game.setWinnerId(game.getWinnerId());
+
+            } else {
+                game.setTournament(tournament);
+                games.add(game);
+            }
+        }
+
+        tournament.setGames(games);
+
+        gameRepository.saveAll(games);
+        gameRepository.flush();
+        tournamentRepository.saveAndFlush(tournament);
 
     }
+
 
     @Override
-    public void finishMatches(List<MatchView> matches) {
-
+    public boolean finishMatches(long idUser, List<MatchView> matches) {
+        for (var match: matches) {
+            finishMatch(idUser, match);
+        }
+        return true;
     }
+
+
+    private com.doomsday.tournamentserver.domain.tournament.Tournament recoveryTournament(Tournament tournament){
+        TournamentBuilder tournamentBuilder = new UniversalTournamentBuilder(tournament);
+
+        var matches = new ArrayList<Match>();
+
+        tournament.getGames().forEach(a -> {
+               matches.add(createMatch(a));
+        });
+
+        var playerDomainService = new DomainPlayerService();
+        var locationDomainService = new DomainLocationService();
+        var dateDomainService = new DomainDateService();
+
+        var players = tournament.getPlayers();
+        var playersDomain = new ArrayList<Player>();
+        players.forEach(a -> playersDomain.add(playerDBToPlayerDomainMapper.map(a)));
+
+        playerDomainService.addNewPlayers(playersDomain);
+
+        var locations = tournament.getLocations();
+        var locationsDomain = new ArrayList<Location>();
+        locations.forEach(a -> locationsDomain.add(locationDBToLocationDomainMapper.map(a)));
+        locationDomainService.addAllLocation(locationsDomain);
+
+        var durationMatch = tournament.getSetting().getDurationMatch().getHour() * 60 +
+                tournament.getSetting().getDurationMatch().getMinute() +
+                tournament.getSetting().getDurationMatch().getSecond() / 60.0;
+
+        var timeSetting  = new TimeSetting(tournament.getSetting().getStartGameDay().getHour(),
+                tournament.getSetting().getEndGameDay().getHour(), durationMatch);
+
+        var endDate = convertToLocalDateTimeViaInstant(tournament.getSetting().getEndDate());
+        var startDate = convertToLocalDateTimeViaInstant(tournament.getSetting().getStartDate());
+
+        dateDomainService.setTimeSetting(startDate, timeSetting);
+        dateDomainService.setEndDate(endDate);
+
+
+        var schemeType = SchemeType.valueOf(tournament.getSetting().getTypeScheme());
+
+        var scheme = new SchemeStrategy().getScheme(schemeType, tournament.getSetting().getCountPlayers());
+
+        var generateSchedule = new ScheduleGeneratorImpl(playerDomainService, locationDomainService, dateDomainService, scheme);
+
+        var schedule = generateSchedule.recoverySchedule(matches);
+
+        return tournamentBuilder.setPlayerService(playerDomainService).setLocationService(locationDomainService).setDateService(dateDomainService).
+                setGenerateSchedule(generateSchedule).setSchedule(schedule).initSetting().build();
+    }
+
 
     @Override
     public boolean createTournament(long idUser, long idTournament) {
@@ -98,6 +249,7 @@ public class TournamentManagerImplService implements TournamentManagerService {
 
         createPrizePlace(tournament, tournamentDomain);
 
+        tournament.setStarted(true);
         tournamentRepository.saveAndFlush(tournament);
 
         return true;
@@ -160,13 +312,7 @@ public class TournamentManagerImplService implements TournamentManagerService {
     private Game createGame(Match match, Tournament tournament){
         var game = new Game();
 
-        var dateMatch = new Date(match.getDate().getYear(),
-                match.getDate().getMonthValue(),
-                match.getDate().getDayOfYear(),
-                match.getDate().getHour(),
-                match.getDate().getMinute(),
-                match.getDate().getSecond());
-
+        var dateMatch = convertToDateViaSqlTimestamp(match.getDate());
         game.setDate(dateMatch);
 
         for (var location: tournament.getLocations()) {
@@ -184,12 +330,22 @@ public class TournamentManagerImplService implements TournamentManagerService {
             }
         }
 
-
+        game.setNumberFirstSide(match.getFirstSide().getNumber());
+        game.setNumberSecondSide(match.getSecondSide().getNumber());
         game.setPlayers(players);
-        game.setState(false);
+        game.setState(match.isPlayed());
+        game.setScoreFirstSide(match.getPointsFirstSide());
+        game.setScoreSecondSide(match.getPointsSecondSide());
+        try {
+            game.setWinnerId(game.getPlayers().stream().filter(a -> a.getNumber() == match.getWinner().getNumber()).findFirst().get().getId());
+        } catch (Exception ex) {
+            game.setWinnerId(-1);
+        }
 
         return  game;
     }
+
+
 
     private boolean isRightPlayer(Player player, com.doomsday.tournamentserver.db.Entity.Player playerDB){
         return player.getFirstName().equals(playerDB.getFirstName()) && player.getLastName().equals(playerDB.getSurname())
@@ -227,8 +383,8 @@ public class TournamentManagerImplService implements TournamentManagerService {
         var timeSetting  = new TimeSetting(tournament.getSetting().getStartGameDay().getHour(),
                 tournament.getSetting().getEndGameDay().getHour(), durationMatch);
 
-        var endDate = map(tournament.getSetting().getEndDate());
-        var startDate = map(tournament.getSetting().getStartDate());
+        var endDate = convertToLocalDateTimeViaInstant(tournament.getSetting().getEndDate());
+        var startDate = convertToLocalDateTimeViaInstant(tournament.getSetting().getStartDate());
 
         dateDomainService.setTimeSetting(startDate, timeSetting);
         dateDomainService.setEndDate(endDate);
@@ -246,18 +402,36 @@ public class TournamentManagerImplService implements TournamentManagerService {
                 setGenerateSchedule(generateSchedule).setSchedule(schedule).initSetting().build();
     }
 
-    private LocalDateTime map(Date date){
-        return LocalDateTime.of(date.getYear(),
-                date.getMonth(),
-                date.getDay(),
-                date.getHours(),
-                date.getMinutes(),
-                date.getSeconds());
-    }
-
     private LocalDate convertToLocalDateViaInstant(Date dateToConvert) {
         return dateToConvert.toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
+    }
+
+    private Match createMatch(Game game) {
+        var firstSide = playerDBToPlayerDomainMapper.map(game.getPlayers().stream().filter(a -> a.getNumber() == game.getNumberFirstSide()).findFirst().get());
+        var secondSide = playerDBToPlayerDomainMapper.map(game.getPlayers().stream().filter(a -> a.getNumber() == game.getNumberSecondSide()).findFirst().get());
+
+        var location = locationDBToLocationDomainMapper.map(game.getLocation());
+        var date = game.getDate();
+
+        var match = new OneOnOneMatch(firstSide, secondSide, location, convertToLocalDateTimeViaInstant(date));
+
+        var matchState = game.isState() ? MatchState.PLAYED : MatchState.NOTPLAYED;
+
+        match.setPoints(game.getScoreFirstSide(), game.getScoreSecondSide());
+        match.setMatchState(matchState);
+
+        return match;
+    }
+
+    public LocalDateTime convertToLocalDateTimeViaInstant(Date dateToConvert) {
+        return dateToConvert.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+    }
+
+    public Date convertToDateViaSqlTimestamp(LocalDateTime dateToConvert) {
+        return java.sql.Timestamp.valueOf(dateToConvert);
     }
 }

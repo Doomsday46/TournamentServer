@@ -109,8 +109,11 @@ public class DomainLocationService implements LocationService{
     public void freeLocation(Location location) {
         if (location == null) throw new NullPointerException("Null argument");
         if (this.locationsList.contains(location)) {
-            location.setBusy(false);
-
+            for (var _location:this.locationsList) {
+                if (_location.equals(location)){
+                    _location.setBusy(false);
+                }
+            }
         } else {
             throw new IllegalArgumentException("Location doesn't exist in dispather");
         }

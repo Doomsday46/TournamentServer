@@ -36,7 +36,7 @@ public class TournamentValidator implements Validator<Tournament> {
 
     private void setValid(){
         var correctSetting  = (tournament.getSetting() != null) && isValidSetting();
-        var correctTournament = !tournament.getFinished() && !tournament.getName().isEmpty() && tournament.isStarted();
+        var correctTournament = !tournament.getFinished() && !tournament.getName().isEmpty() && !tournament.isStarted();
         isValid = correctSetting && correctTournament && isValidPlayers() && isValidLocations();
     }
 

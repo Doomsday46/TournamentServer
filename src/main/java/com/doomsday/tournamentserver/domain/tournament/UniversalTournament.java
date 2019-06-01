@@ -12,6 +12,7 @@ import com.doomsday.tournamentserver.domain.service.LocationService;
 import com.doomsday.tournamentserver.domain.service.PlayerService;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UniversalTournament implements Tournament {
@@ -39,6 +40,7 @@ public class UniversalTournament implements Tournament {
         this.playerService = playerService;
         this.locationService = locationService;
         this.dateService = dateService;
+        this.prizePlaces = new ArrayList<PrizePlace>();
         this.isStart = false;
     }
 
@@ -104,7 +106,7 @@ public class UniversalTournament implements Tournament {
     @Override
     public void finish() {
         if (this.isStart) {
-            if (schedule.getMatchesByState(MatchState.PLAYED).size() == 0)
+            if (schedule.getMatchesByState(MatchState.NOTPLAYED).size() != 0)
                 throw new FinishTournamentException("Matches didn't played");
             if (this.schedule.getAllMatches().size() != this.scheduleGenerator.getScheme().getMaxPairCount())
                 return;
@@ -135,6 +137,10 @@ public class UniversalTournament implements Tournament {
     public void finishMatch(Match match, Score score) {
         if (match == null || score == null) throw new NullPointerException();
         if (!(isStart)) throw new StartTournamentException("Tournament is not started");
+
+        var matchSchedule = this.schedule.getAllMatches().stream().filter(a -> a.getDate().equals(match.getDate()) && a.getLocation().equals(match.getLocation())).findFirst().get();
+        matchSchedule.setPoints(score.getPointsFirstSide(), score.getPointsSecondSide());
+        matchSchedule.setMatchState(MatchState.PLAYED);
         match.setPoints(score.getPointsFirstSide(), score.getPointsSecondSide());
         match.setMatchState(MatchState.PLAYED);
         this.locationService.freeLocation(match.getLocation());
@@ -161,6 +167,11 @@ public class UniversalTournament implements Tournament {
             if(prizePlace.getPrizePlace() == number) return  prizePlace.getPlayer();
         }
         return null;
+    }
+
+    @Override
+    public List<PrizePlace> getPrizePlace() {
+        return prizePlaces;
     }
 
     @Override

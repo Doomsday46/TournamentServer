@@ -11,14 +11,20 @@ public class MatchInformation {
     private boolean isFinished;
     private Date date;
     private LocationViewInformation locationViewInformation;
+    private int numberFirstSide;
+    private int numberSecondSide;
+    private PlayerViewInformation winner;
 
-    public MatchInformation(long idTournament, long idMatch, List<PlayerViewInformation> players, boolean isFinished, Date date, LocationViewInformation locationViewInformation) {
+    public MatchInformation(long idTournament, long idMatch, List<PlayerViewInformation> players, boolean isFinished, Date date, LocationViewInformation locationViewInformation, int numberFirstSide, int numberSecondSide, PlayerViewInformation winner) {
         this.idTournament = idTournament;
         this.idMatch = idMatch;
         this.players = players;
         this.isFinished = isFinished;
         this.date = date;
         this.locationViewInformation = locationViewInformation;
+        this.numberFirstSide = numberFirstSide;
+        this.numberSecondSide = numberSecondSide;
+        this.winner = winner;
     }
 
     public long getIdTournament() {
@@ -43,5 +49,17 @@ public class MatchInformation {
 
     public LocationViewInformation getLocationViewInformation() {
         return locationViewInformation;
+    }
+
+    public int getNumberFirstSide() {
+        return numberFirstSide;
+    }
+
+    public int getNumberSecondSide() {
+        return numberSecondSide;
+    }
+
+    public PlayerViewInformation getWinner() {
+        return winner;
     }
 }

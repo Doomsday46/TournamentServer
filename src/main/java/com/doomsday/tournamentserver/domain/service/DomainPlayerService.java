@@ -66,8 +66,8 @@ public class DomainPlayerService implements PlayerService{
     public Integer getPlayerNumber(Player player)
     {
         if (player == null) throw new NullPointerException();
-        if (!(playersNumbersMap.containsKey(player))) throw new IllegalArgumentException("Can't find specified player");
-        return playersNumbersMap.get(player);
+        if (!(playersNumbersMap.containsValue(player.getNumber()))) throw new IllegalArgumentException("Can't find specified player");
+        return player.getNumber();
     }
     @Override
     public List<Player> getAllPlayers()

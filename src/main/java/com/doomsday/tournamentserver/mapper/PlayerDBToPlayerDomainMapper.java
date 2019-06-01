@@ -12,6 +12,8 @@ public class PlayerDBToPlayerDomainMapper implements Mapper<Player, com.doomsday
     public Player map(com.doomsday.tournamentserver.db.Entity.Player object) {
         var player = new Player(object.getFirstName(),object.getSurname(), convertToLocalDateViaInstant(object.getAge()));
 
+        if (object.getNumber() > 0) player.setNumber(object.getNumber());
+
         return player;
     }
 

@@ -9,5 +9,6 @@ public interface ScheduleGenerator {
     Schedule generateSchedule();
     Schedule updateSchedule(List<Match> matchesList, Schedule existingSchedule);
     Schedule updateSchedule(Match match, Schedule existingSchedule);
+    Schedule recoverySchedule(List<Match> matchList);
     Scheme getScheme();
 }

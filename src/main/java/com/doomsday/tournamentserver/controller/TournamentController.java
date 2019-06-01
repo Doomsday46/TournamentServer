@@ -11,6 +11,7 @@ import com.doomsday.tournamentserver.service.UserService;
 import com.doomsday.tournamentserver.service.implement.TournamentManagerImplService;
 import com.doomsday.tournamentserver.service.model.information.TournamentInformation;
 import com.doomsday.tournamentserver.service.model.information.TournamentSaveInformation;
+import com.doomsday.tournamentserver.service.model.view.MatchView;
 import com.doomsday.tournamentserver.service.model.view.TournamentView;
 import com.doomsday.tournamentserver.validator.TournamentViewValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -95,6 +96,25 @@ public class TournamentController {
             var isCreate = tournamentManagerImplService.createTournament(user.getId(), idTournament);
 
             if (!isCreate) return new ResponseEntity<>(getResponse(400, new Information("failed")), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(getResponse(200, new Information("successfull")), HttpStatus.OK);
+
+        } catch(Exception ex) {
+            return new ResponseEntity<>(getResponse(400, new Information(ex.getMessage())), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = {"/api/tournament/match/finish"}, method = RequestMethod.POST)
+    public ResponseEntity<Response> createTournament(@RequestBody MatchView matchView) {
+        if (matchView.getIdMatch() <= 0 || matchView.getIdTournament() <= 0)
+            return new ResponseEntity<>(new Response<>(400, new Information(getMessage("incorrectParameter"))),HttpStatus.BAD_REQUEST);
+
+        User user = userService.findByUsername(templateHelper.getUsername());
+
+        try {
+
+            var isFinish = tournamentManagerImplService.finishMatch(user.getId(), matchView);
+
+            if (!isFinish) return new ResponseEntity<>(getResponse(400, new Information("failed")), HttpStatus.BAD_REQUEST);
             return new ResponseEntity<>(getResponse(200, new Information("successfull")), HttpStatus.OK);
 
         } catch(Exception ex) {

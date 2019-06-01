@@ -1,9 +1,6 @@
 package com.doomsday.tournamentserver.domain.tournament;
 
-import com.doomsday.tournamentserver.domain.model.Location;
-import com.doomsday.tournamentserver.domain.model.Match;
-import com.doomsday.tournamentserver.domain.model.Player;
-import com.doomsday.tournamentserver.domain.model.Score;
+import com.doomsday.tournamentserver.domain.model.*;
 import com.doomsday.tournamentserver.domain.schedule.Schedule;
 import com.doomsday.tournamentserver.domain.scheme.Scheme;
 import com.doomsday.tournamentserver.domain.scheme.SchemeType;
@@ -31,5 +28,6 @@ public interface Tournament {
      void finishMatches(List<Match> matches,List<Score> points) ;
      boolean isStart();
      Player getThePrizePlace(int number);
+     List<PrizePlace> getPrizePlace();
      Scheme getScheme();
 }

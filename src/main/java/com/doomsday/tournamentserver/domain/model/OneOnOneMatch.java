@@ -1,6 +1,7 @@
 package com.doomsday.tournamentserver.domain.model;
 
 import com.doomsday.tournamentserver.domain.exception.PlayedMatchException;
+import com.doomsday.tournamentserver.domain.pair.Pair;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -19,7 +20,7 @@ public class OneOnOneMatch implements Match{
         this.firstSide = firstSide;
         this.secondSide = secondSide;
         this.location = location;
-        this.score = new Score();
+        this.score = new Score(0,0);
         this.date = date;
     }
 
@@ -66,8 +67,8 @@ public class OneOnOneMatch implements Match{
 
     @Override
     public void setPoints(int pointsFirstSide, int pointsSecondSide) throws PlayedMatchException {
-        if (!isPlayed()) this.score.setPoints(pointsFirstSide, pointsSecondSide);
-        else throw new PlayedMatchException("Game is already played");
+         this.score.setPoints(pointsFirstSide, pointsSecondSide);
+       // else throw new PlayedMatchException("Game is already played");
     }
 
     @Override
@@ -90,4 +91,6 @@ public class OneOnOneMatch implements Match{
     public String toString() {
         return "";
     }
+
+
 }
