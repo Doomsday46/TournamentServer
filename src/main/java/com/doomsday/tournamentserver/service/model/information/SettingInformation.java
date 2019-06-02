@@ -2,7 +2,13 @@ package com.doomsday.tournamentserver.service.model.information;
 
 import com.doomsday.tournamentserver.service.model.TournamentTimeSetting;
 import com.doomsday.tournamentserver.service.model.TypeScheme;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class SettingInformation {
@@ -11,6 +17,7 @@ public class SettingInformation {
     private long idSetting;
     private TypeScheme typeScheme;
     private int countPlayers;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "hh:mm:ss")
     private LocalTime durationMatch;
     private int countPrizePlace;
     private TournamentTimeSetting tournamentTimeSetting;

@@ -1,6 +1,6 @@
 package com.doomsday.tournamentserver.controller;
 
-import com.doomsday.tournamentserver.db.Entity.User;
+import com.doomsday.tournamentserver.database.Entity.User;
 import com.doomsday.tournamentserver.service.SecurityService;
 import com.doomsday.tournamentserver.service.UserService;
 import com.doomsday.tournamentserver.service.implement.UserValidator;
@@ -27,14 +27,17 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public String registration(@RequestBody User user) {
+    public ResponseEntity registration(@RequestBody User user) {
         //userValidator.validate(user);
 
-        userService.save(user);
+        try{
+            userService.save(user);
+            securityService.autologin(user.getUsername(), user.getPasswordConfirm());
+        } catch (Exception ex){
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
 
-        securityService.autologin(user.getUsername(), user.getPasswordConfirm());
-
-        return "Successfull";
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)

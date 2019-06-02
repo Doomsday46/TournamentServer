@@ -1,4 +1,4 @@
-package com.doomsday.tournamentserver.db.Entity;
+package com.doomsday.tournamentserver.database.Entity;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;

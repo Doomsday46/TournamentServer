@@ -1,6 +1,6 @@
 package com.doomsday.tournamentserver.validator;
 
-import com.doomsday.tournamentserver.db.Entity.Tournament;
+import com.doomsday.tournamentserver.database.Entity.Tournament;
 import com.doomsday.tournamentserver.domain.scheme.SchemeType;
 import com.doomsday.tournamentserver.localization.TextProgram;
 import org.springframework.stereotype.Service;

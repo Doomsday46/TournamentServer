@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 public interface DateService {
     void setTimeSetting(LocalDateTime startDate, TimeSetting timeSettings);
     LocalDateTime getNextDate();
+    LocalDateTime getNextDate(LocalDateTime localDateTime);
     LocalDateTime getStartDate();
     Integer getAllowedHourStart();
     Integer getAllowedHourEnd();

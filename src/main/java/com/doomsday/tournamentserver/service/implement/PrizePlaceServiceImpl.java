@@ -1,8 +1,8 @@
 package com.doomsday.tournamentserver.service.implement;
 
-import com.doomsday.tournamentserver.db.Entity.PrizePlace;
-import com.doomsday.tournamentserver.db.repository.PlayerRepository;
-import com.doomsday.tournamentserver.db.repository.PrizePlaceRepository;
+import com.doomsday.tournamentserver.database.Entity.PrizePlace;
+import com.doomsday.tournamentserver.database.repository.PlayerRepository;
+import com.doomsday.tournamentserver.database.repository.PrizePlaceRepository;
 import com.doomsday.tournamentserver.mapper.PrizePlaceViewToPrizePlaceMapper;
 import com.doomsday.tournamentserver.service.PrizePlaceService;
 import com.doomsday.tournamentserver.service.model.view.PrizePlaceView;

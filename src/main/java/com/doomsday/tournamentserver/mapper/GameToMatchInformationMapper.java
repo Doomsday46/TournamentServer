@@ -1,6 +1,6 @@
 package com.doomsday.tournamentserver.mapper;
 
-import com.doomsday.tournamentserver.db.Entity.Game;
+import com.doomsday.tournamentserver.database.Entity.Game;
 import com.doomsday.tournamentserver.service.model.information.MatchInformation;
 import com.doomsday.tournamentserver.service.model.information.PlayerViewInformation;
 import org.springframework.beans.factory.annotation.Autowired;

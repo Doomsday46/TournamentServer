@@ -1,6 +1,6 @@
 package com.doomsday.tournamentserver.mapper;
 
-import com.doomsday.tournamentserver.db.Entity.Location;
+import com.doomsday.tournamentserver.database.Entity.Location;
 import com.doomsday.tournamentserver.service.model.view.LocationView;
 import org.springframework.stereotype.Service;
 

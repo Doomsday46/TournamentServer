@@ -22,11 +22,11 @@ public class UniversalTournamentBuilder implements TournamentBuilder{
     private TournamentSetting tournamentSetting;
     private TournamentInfo tournamentInfo;
 
-    private com.doomsday.tournamentserver.db.Entity.Tournament tournamentDB;
+    private com.doomsday.tournamentserver.database.Entity.Tournament tournamentDB;
 
 
 
-    public UniversalTournamentBuilder(com.doomsday.tournamentserver.db.Entity.Tournament tournamentDB){
+    public UniversalTournamentBuilder(com.doomsday.tournamentserver.database.Entity.Tournament tournamentDB){
         this.tournamentDB = tournamentDB;
     }
 

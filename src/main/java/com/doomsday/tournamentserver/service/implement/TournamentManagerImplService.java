@@ -1,15 +1,14 @@
 package com.doomsday.tournamentserver.service.implement;
 
-import com.doomsday.tournamentserver.db.Entity.Game;
-import com.doomsday.tournamentserver.db.Entity.PrizePlace;
-import com.doomsday.tournamentserver.db.Entity.Tournament;
-import com.doomsday.tournamentserver.db.repository.*;
+import com.doomsday.tournamentserver.database.Entity.Game;
+import com.doomsday.tournamentserver.database.Entity.PrizePlace;
+import com.doomsday.tournamentserver.database.Entity.Tournament;
+import com.doomsday.tournamentserver.database.repository.*;
 import com.doomsday.tournamentserver.domain.builder.TournamentBuilder;
 import com.doomsday.tournamentserver.domain.builder.UniversalTournamentBuilder;
 import com.doomsday.tournamentserver.domain.model.*;
-import com.doomsday.tournamentserver.domain.schedule.Schedule;
 import com.doomsday.tournamentserver.domain.schedule.ScheduleGeneratorImpl;
-import com.doomsday.tournamentserver.domain.schedule.ScheduleImpl;
+import com.doomsday.tournamentserver.domain.scheme.Scheme;
 import com.doomsday.tournamentserver.domain.scheme.SchemeStrategy;
 import com.doomsday.tournamentserver.domain.scheme.SchemeType;
 import com.doomsday.tournamentserver.domain.service.DomainDateService;
@@ -21,7 +20,6 @@ import com.doomsday.tournamentserver.mapper.PlayerDBToPlayerDomainMapper;
 import com.doomsday.tournamentserver.service.TournamentManagerService;
 import com.doomsday.tournamentserver.service.model.view.MatchView;
 import com.doomsday.tournamentserver.validator.TournamentValidator;
-import org.hibernate.mapping.OneToOne;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +40,10 @@ public class TournamentManagerImplService implements TournamentManagerService {
     private LocationRepository locationRepository;
     private PlayerDBToPlayerDomainMapper playerDBToPlayerDomainMapper;
     private LocationDBToLocationDomainMapper locationDBToLocationDomainMapper;
+    private DomainPlayerService playerDomainService;
+    private DomainLocationService locationDomainService;
+    private DomainDateService dateDomainService;
+    private Scheme scheme;
 
     @Autowired
     public TournamentManagerImplService(TournamentRepository tournamentRepository, TournamentValidator tournamentValidator, GameRepository gameRepository, PrizePlaceRepository prizePlaceRepository, PlayerRepository playerRepository, LocationRepository locationRepository, PlayerDBToPlayerDomainMapper playerDBToPlayerDomainMapper, LocationDBToLocationDomainMapper locationDBToLocationDomainMapper) {
@@ -171,15 +173,29 @@ public class TournamentManagerImplService implements TournamentManagerService {
                matches.add(createMatch(a));
         });
 
-        var playerDomainService = new DomainPlayerService();
-        var locationDomainService = new DomainLocationService();
-        var dateDomainService = new DomainDateService();
+        initParametersForTournament(tournament);
 
         var players = tournament.getPlayers();
         var playersDomain = new ArrayList<Player>();
         players.forEach(a -> playersDomain.add(playerDBToPlayerDomainMapper.map(a)));
 
         playerDomainService.addNewPlayers(playersDomain);
+
+
+
+        var generateSchedule = new ScheduleGeneratorImpl(playerDomainService, locationDomainService, dateDomainService, scheme);
+
+        var schedule = generateSchedule.recoverySchedule(matches);
+
+        return tournamentBuilder.setPlayerService(playerDomainService).setLocationService(locationDomainService).setDateService(dateDomainService).
+                setGenerateSchedule(generateSchedule).setSchedule(schedule).initSetting().build();
+    }
+
+
+    private void initParametersForTournament(Tournament tournament){
+        playerDomainService = new DomainPlayerService();
+        locationDomainService = new DomainLocationService();
+        dateDomainService = new DomainDateService();
 
         var locations = tournament.getLocations();
         var locationsDomain = new ArrayList<Location>();
@@ -190,8 +206,9 @@ public class TournamentManagerImplService implements TournamentManagerService {
                 tournament.getSetting().getDurationMatch().getMinute() +
                 tournament.getSetting().getDurationMatch().getSecond() / 60.0;
 
+        double offsetMinutes = 30.0;
         var timeSetting  = new TimeSetting(tournament.getSetting().getStartGameDay().getHour(),
-                tournament.getSetting().getEndGameDay().getHour(), durationMatch);
+                tournament.getSetting().getEndGameDay().getHour(), durationMatch + offsetMinutes);
 
         var endDate = convertToLocalDateTimeViaInstant(tournament.getSetting().getEndDate());
         var startDate = convertToLocalDateTimeViaInstant(tournament.getSetting().getStartDate());
@@ -202,16 +219,8 @@ public class TournamentManagerImplService implements TournamentManagerService {
 
         var schemeType = SchemeType.valueOf(tournament.getSetting().getTypeScheme());
 
-        var scheme = new SchemeStrategy().getScheme(schemeType, tournament.getSetting().getCountPlayers());
-
-        var generateSchedule = new ScheduleGeneratorImpl(playerDomainService, locationDomainService, dateDomainService, scheme);
-
-        var schedule = generateSchedule.recoverySchedule(matches);
-
-        return tournamentBuilder.setPlayerService(playerDomainService).setLocationService(locationDomainService).setDateService(dateDomainService).
-                setGenerateSchedule(generateSchedule).setSchedule(schedule).initSetting().build();
+        scheme = new SchemeStrategy().getScheme(schemeType, tournament.getSetting().getCountPlayers());
     }
-
 
     @Override
     public boolean createTournament(long idUser, long idTournament) {
@@ -345,9 +354,7 @@ public class TournamentManagerImplService implements TournamentManagerService {
         return  game;
     }
 
-
-
-    private boolean isRightPlayer(Player player, com.doomsday.tournamentserver.db.Entity.Player playerDB){
+    private boolean isRightPlayer(Player player, com.doomsday.tournamentserver.database.Entity.Player playerDB){
         return player.getFirstName().equals(playerDB.getFirstName()) && player.getLastName().equals(playerDB.getSurname())
                 && player.getAge() == Period.between(convertToLocalDateViaInstant(playerDB.getAge()), LocalDate.now()).getYears() && player.getNumber() == playerDB.getNumber();
     }
@@ -355,13 +362,11 @@ public class TournamentManagerImplService implements TournamentManagerService {
     private com.doomsday.tournamentserver.domain.tournament.Tournament createTournament(Tournament tournament){
         TournamentBuilder tournamentBuilder = new UniversalTournamentBuilder(tournament);
 
-        var playerDomainService = new DomainPlayerService();
-        var locationDomainService = new DomainLocationService();
-        var dateDomainService = new DomainDateService();
-
         var players = tournament.getPlayers();
         var playersDomain = new ArrayList<Player>();
         players.forEach(a -> playersDomain.add(playerDBToPlayerDomainMapper.map(a)));
+
+        initParametersForTournament(tournament);
 
         int number = 1;
         for (var playerDomain:playersDomain) {
@@ -371,28 +376,7 @@ public class TournamentManagerImplService implements TournamentManagerService {
 
         playerDomainService.addNewPlayers(playersDomain);
 
-        var locations = tournament.getLocations();
-        var locationsDomain = new ArrayList<Location>();
-        locations.forEach(a -> locationsDomain.add(locationDBToLocationDomainMapper.map(a)));
-        locationDomainService.addAllLocation(locationsDomain);
 
-        var durationMatch = tournament.getSetting().getDurationMatch().getHour() * 60 +
-                tournament.getSetting().getDurationMatch().getMinute() +
-                tournament.getSetting().getDurationMatch().getSecond() / 60.0;
-
-        var timeSetting  = new TimeSetting(tournament.getSetting().getStartGameDay().getHour(),
-                tournament.getSetting().getEndGameDay().getHour(), durationMatch);
-
-        var endDate = convertToLocalDateTimeViaInstant(tournament.getSetting().getEndDate());
-        var startDate = convertToLocalDateTimeViaInstant(tournament.getSetting().getStartDate());
-
-        dateDomainService.setTimeSetting(startDate, timeSetting);
-        dateDomainService.setEndDate(endDate);
-
-
-        var schemeType = SchemeType.valueOf(tournament.getSetting().getTypeScheme());
-
-        var scheme = new SchemeStrategy().getScheme(schemeType, tournament.getSetting().getCountPlayers());
 
         var generateSchedule = new ScheduleGeneratorImpl(playerDomainService, locationDomainService, dateDomainService, scheme);
 
@@ -425,13 +409,13 @@ public class TournamentManagerImplService implements TournamentManagerService {
         return match;
     }
 
-    public LocalDateTime convertToLocalDateTimeViaInstant(Date dateToConvert) {
+    private LocalDateTime convertToLocalDateTimeViaInstant(Date dateToConvert) {
         return dateToConvert.toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime();
     }
 
-    public Date convertToDateViaSqlTimestamp(LocalDateTime dateToConvert) {
+    private Date convertToDateViaSqlTimestamp(LocalDateTime dateToConvert) {
         return java.sql.Timestamp.valueOf(dateToConvert);
     }
 }

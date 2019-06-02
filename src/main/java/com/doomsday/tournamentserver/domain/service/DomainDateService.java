@@ -22,25 +22,36 @@ public class DomainDateService implements DateService{
     @Override
     public LocalDateTime getNextDate()
     {
-        LocalDateTime currentDate = LocalDateTime.now();
-        if (currentDate.isBefore(this.startDate))
+        LocalDateTime _currentDate = LocalDateTime.now();
+        if (_currentDate.isBefore(this.startDate))
         {
-            currentDate = this.startDate;
+            _currentDate = this.startDate;
         }
+        var currentDate = getDate(_currentDate);
+        return currentDate;
+    }
+
+    private LocalDateTime getDate(LocalDateTime currentDate) {
         currentDate = currentDate.plusMinutes(Math.round(this.timeSettings.getDateMinutesOffset()));
         if (currentDate.getHour() < timeSettings.getAllowedHourStart())
         {
             currentDate = currentDate.withHour(timeSettings.getAllowedHourStart());
             return currentDate;
         }
-        if (currentDate.getHour() > timeSettings.getAllowedHourStart())
+        if (currentDate.getHour() > timeSettings.getAllowedHourEnd())
         {
             currentDate = currentDate.plusDays(1);
             currentDate = currentDate.withHour(timeSettings.getAllowedHourStart());
             return currentDate;
         }
-        return currentDate;
+        return  currentDate;
     }
+
+    @Override
+    public LocalDateTime getNextDate(LocalDateTime localDateTime) {
+        return getDate(localDateTime);
+    }
+
     @Override
     public TimeSetting getTimeSettings() {
         return timeSettings;

@@ -9,6 +9,7 @@ import com.doomsday.tournamentserver.domain.service.DateService;
 import com.doomsday.tournamentserver.domain.service.LocationService;
 import com.doomsday.tournamentserver.domain.service.PlayerService;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class ScheduleGeneratorImpl implements ScheduleGenerator{
     @Override
     public Schedule generateSchedule(){
         Schedule newSchedule = new ScheduleImpl();
-        newSchedule.addMatches(this.createMatches());
+        newSchedule.addMatches(this.createMatches(newSchedule.getAllMatches()));
         return newSchedule;
     }
 
@@ -51,7 +52,7 @@ public class ScheduleGeneratorImpl implements ScheduleGenerator{
 
     private Schedule getSchedule(Schedule existingSchedule, List<Integer> winnersList) {
         this.tournamentScheme.updateScheme(winnersList);
-        List<Match> newMatches = this.createMatches();
+        List<Match> newMatches = this.createMatches(existingSchedule.getAllMatches());
         if (newMatches.size() == 0) return existingSchedule;
         existingSchedule.addMatches(newMatches);
         return existingSchedule;
@@ -82,7 +83,7 @@ public class ScheduleGeneratorImpl implements ScheduleGenerator{
         return recoverySchedule;
     }
 
-    private List<Match> createMatches()
+    private List<Match> createMatches(List<Match> allMatches)
     {
         List<Match> matchesList = new ArrayList<>();
         List<Location> freeLocations = this.locationService.getAllFreeLocations();
@@ -93,8 +94,17 @@ public class ScheduleGeneratorImpl implements ScheduleGenerator{
             Pair<Integer,Integer> playerPair = tournamentScheme.getNextNotPlayedPair();
             if (playerPair == null) break;
             locationService.reserveLocation(location);
+
+            LocalDateTime localDateTime;
+            if (allMatches.size() == 0) localDateTime = dateService.getNextDate();
+            else {
+
+                var  dateTime = allMatches.stream().map(Match::getDate).max(LocalDateTime::compareTo).get();;
+                localDateTime = dateService.getNextDate(dateTime);
+            }
+
             Match newMatch = new OneOnOneMatch(playerService.getPlayerByNumber(playerPair.getFirstObject()),
-                    playerService.getPlayerByNumber(playerPair.getSecondObject()), location, dateService.getNextDate());
+                    playerService.getPlayerByNumber(playerPair.getSecondObject()), location, localDateTime);
             matchesList.add(newMatch);
         }
         return matchesList;

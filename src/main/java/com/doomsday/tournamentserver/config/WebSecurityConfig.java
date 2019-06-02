@@ -1,7 +1,7 @@
 package com.doomsday.tournamentserver.config;
 
-import com.doomsday.tournamentserver.db.Entity.RoleName;
-import com.doomsday.tournamentserver.db.repository.UserRepository;
+import com.doomsday.tournamentserver.database.Entity.RoleName;
+import com.doomsday.tournamentserver.database.repository.UserRepository;
 import com.doomsday.tournamentserver.service.implement.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -1,4 +1,4 @@
-package com.doomsday.tournamentserver.db.Entity;
+package com.doomsday.tournamentserver.database.Entity;
 
 public enum RoleName {
     USER("USER"),

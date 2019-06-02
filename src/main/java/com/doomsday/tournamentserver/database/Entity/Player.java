@@ -1,4 +1,4 @@
-package com.doomsday.tournamentserver.db.Entity;
+package com.doomsday.tournamentserver.database.Entity;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -21,6 +21,7 @@ public class Player {
     private int number;
 
     @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date age;
 
     @OneToOne(cascade = CascadeType.ALL)

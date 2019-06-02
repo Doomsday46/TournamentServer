@@ -1,6 +1,6 @@
 package com.doomsday.tournamentserver.mapper;
 
-import com.doomsday.tournamentserver.db.Entity.Tournament;
+import com.doomsday.tournamentserver.database.Entity.Tournament;
 import com.doomsday.tournamentserver.service.model.information.LocationViewInformation;
 import com.doomsday.tournamentserver.service.model.information.PlayerViewInformation;
 import com.doomsday.tournamentserver.service.model.information.SettingInformation;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service

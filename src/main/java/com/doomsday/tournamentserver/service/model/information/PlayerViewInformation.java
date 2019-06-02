@@ -1,5 +1,10 @@
 package com.doomsday.tournamentserver.service.model.information;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.DateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+
 import java.util.Date;
 
 public class PlayerViewInformation {
@@ -8,6 +13,7 @@ public class PlayerViewInformation {
     private long id;
     private String firstName;
     private String secondName;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy hh:mm:ss")
     private Date birthDay;
 
     private int numberPlayerInTournament;

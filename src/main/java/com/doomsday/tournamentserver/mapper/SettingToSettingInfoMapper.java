@@ -1,6 +1,6 @@
 package com.doomsday.tournamentserver.mapper;
 
-import com.doomsday.tournamentserver.db.Entity.Setting;
+import com.doomsday.tournamentserver.database.Entity.Setting;
 import com.doomsday.tournamentserver.service.model.TournamentTimeSetting;
 import com.doomsday.tournamentserver.service.model.TypeScheme;
 import com.doomsday.tournamentserver.service.model.information.SettingInformation;

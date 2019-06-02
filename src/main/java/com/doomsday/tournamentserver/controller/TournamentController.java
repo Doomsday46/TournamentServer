@@ -2,7 +2,7 @@ package com.doomsday.tournamentserver.controller;
 
 import com.doomsday.tournamentserver.controller.response.Information;
 import com.doomsday.tournamentserver.controller.response.Response;
-import com.doomsday.tournamentserver.db.Entity.User;
+import com.doomsday.tournamentserver.database.Entity.User;
 import com.doomsday.tournamentserver.localization.TextProgram;
 import com.doomsday.tournamentserver.mapper.TournamentToTournamentInfoMapper;
 import com.doomsday.tournamentserver.service.TemplateHelper;
@@ -104,7 +104,7 @@ public class TournamentController {
     }
 
     @RequestMapping(value = {"/api/tournament/match/finish"}, method = RequestMethod.POST)
-    public ResponseEntity<Response> createTournament(@RequestBody MatchView matchView) {
+    public ResponseEntity<Response> finishMatch(@RequestBody MatchView matchView) {
         if (matchView.getIdMatch() <= 0 || matchView.getIdTournament() <= 0)
             return new ResponseEntity<>(new Response<>(400, new Information(getMessage("incorrectParameter"))),HttpStatus.BAD_REQUEST);
 

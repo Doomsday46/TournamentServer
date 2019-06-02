@@ -1,4 +1,4 @@
-package com.doomsday.tournamentserver.db.Entity;
+package com.doomsday.tournamentserver.database.Entity;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -23,9 +23,11 @@ public class Setting {
     private String typeScheme;
 
     @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date startDate;
 
     @DateTimeFormat(pattern = "dd.MM.yyyy HH:mm:ss")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date endDate;
 
     @DateTimeFormat(pattern = "HH:mm:ss")

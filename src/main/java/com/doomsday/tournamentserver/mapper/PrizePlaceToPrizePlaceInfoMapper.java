@@ -1,6 +1,6 @@
 package com.doomsday.tournamentserver.mapper;
 
-import com.doomsday.tournamentserver.db.Entity.PrizePlace;
+import com.doomsday.tournamentserver.database.Entity.PrizePlace;
 import com.doomsday.tournamentserver.service.model.information.PlayerViewInformation;
 import com.doomsday.tournamentserver.service.model.information.PrizePlaceInformation;
 import org.springframework.beans.factory.annotation.Autowired;

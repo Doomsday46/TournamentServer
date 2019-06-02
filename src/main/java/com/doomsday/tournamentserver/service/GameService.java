@@ -1,6 +1,6 @@
 package com.doomsday.tournamentserver.service;
 
-import com.doomsday.tournamentserver.db.Entity.Game;
+import com.doomsday.tournamentserver.database.Entity.Game;
 
 import java.util.Date;
 import java.util.List;

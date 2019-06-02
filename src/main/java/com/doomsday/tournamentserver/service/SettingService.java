@@ -1,6 +1,6 @@
 package com.doomsday.tournamentserver.service;
 
-import com.doomsday.tournamentserver.db.Entity.Setting;
+import com.doomsday.tournamentserver.database.Entity.Setting;
 import com.doomsday.tournamentserver.service.model.view.SettingView;
 
 public interface SettingService {

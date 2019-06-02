@@ -1,9 +1,9 @@
 package com.doomsday.tournamentserver.service.implement;
 
-import com.doomsday.tournamentserver.db.Entity.Location;
-import com.doomsday.tournamentserver.db.repository.LocationRepository;
-import com.doomsday.tournamentserver.db.repository.TournamentRepository;
-import com.doomsday.tournamentserver.db.repository.UserRepository;
+import com.doomsday.tournamentserver.database.Entity.Location;
+import com.doomsday.tournamentserver.database.repository.LocationRepository;
+import com.doomsday.tournamentserver.database.repository.TournamentRepository;
+import com.doomsday.tournamentserver.database.repository.UserRepository;
 import com.doomsday.tournamentserver.mapper.LocationViewToLocationMapper;
 import com.doomsday.tournamentserver.service.LocationService;
 import com.doomsday.tournamentserver.service.model.view.LocationView;
@@ -46,7 +46,7 @@ public class LocationServiceImpl implements LocationService {
         }
 
 
-        return false;
+        return true;
     }
 
     @Override
@@ -68,7 +68,7 @@ public class LocationServiceImpl implements LocationService {
         }
 
 
-        return false;
+        return true;
     }
 
     @Override
@@ -88,7 +88,7 @@ public class LocationServiceImpl implements LocationService {
             return false;
         }
 
-        return false;
+        return true;
     }
 
     @Override
@@ -108,7 +108,7 @@ public class LocationServiceImpl implements LocationService {
             return false;
         }
 
-        return false;
+        return true;
     }
 
     @Override

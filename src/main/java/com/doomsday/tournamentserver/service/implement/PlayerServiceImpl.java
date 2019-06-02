@@ -1,9 +1,9 @@
 package com.doomsday.tournamentserver.service.implement;
 
-import com.doomsday.tournamentserver.db.Entity.Player;
-import com.doomsday.tournamentserver.db.repository.PlayerRepository;
-import com.doomsday.tournamentserver.db.repository.TournamentRepository;
-import com.doomsday.tournamentserver.db.repository.UserRepository;
+import com.doomsday.tournamentserver.database.Entity.Player;
+import com.doomsday.tournamentserver.database.repository.PlayerRepository;
+import com.doomsday.tournamentserver.database.repository.TournamentRepository;
+import com.doomsday.tournamentserver.database.repository.UserRepository;
 import com.doomsday.tournamentserver.mapper.PlayerViewToPlayerMapper;
 import com.doomsday.tournamentserver.service.PlayerService;
 import com.doomsday.tournamentserver.service.model.view.PlayerView;

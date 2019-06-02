@@ -1,8 +1,8 @@
 package com.doomsday.tournamentserver.service.implement;
 
-import com.doomsday.tournamentserver.db.Entity.Setting;
-import com.doomsday.tournamentserver.db.Entity.Tournament;
-import com.doomsday.tournamentserver.db.repository.*;
+import com.doomsday.tournamentserver.database.Entity.Setting;
+import com.doomsday.tournamentserver.database.Entity.Tournament;
+import com.doomsday.tournamentserver.database.repository.*;
 import com.doomsday.tournamentserver.localization.TextProgram;
 import com.doomsday.tournamentserver.mapper.*;
 import com.doomsday.tournamentserver.service.TournamentService;

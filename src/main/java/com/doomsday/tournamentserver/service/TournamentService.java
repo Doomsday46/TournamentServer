@@ -1,6 +1,6 @@
 package com.doomsday.tournamentserver.service;
 
-import com.doomsday.tournamentserver.db.Entity.Tournament;
+import com.doomsday.tournamentserver.database.Entity.Tournament;
 import com.doomsday.tournamentserver.service.model.information.SchemeInformation;
 import com.doomsday.tournamentserver.service.model.information.TournamentInformation;
 import com.doomsday.tournamentserver.service.model.information.TournamentSaveInformation;
