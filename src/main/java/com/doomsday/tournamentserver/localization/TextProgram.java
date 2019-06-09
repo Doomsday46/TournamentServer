@@ -12,7 +12,7 @@ public class  TextProgram {
     }
 
     public  TextProgram(String resource){
-        this.resourceBundle = ResourceBundle.getBundle(resource);
+        this.resourceBundle = ResourceBundle.getBundle(resource,new UTF8Control());
     }
 
     public ResourceBundle getResourceBundle() {

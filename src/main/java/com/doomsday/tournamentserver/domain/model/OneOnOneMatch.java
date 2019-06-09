@@ -67,8 +67,8 @@ public class OneOnOneMatch implements Match{
 
     @Override
     public void setPoints(int pointsFirstSide, int pointsSecondSide) throws PlayedMatchException {
-         this.score.setPoints(pointsFirstSide, pointsSecondSide);
-       // else throw new PlayedMatchException("Game is already played");
+                this.score.setPoints(pointsFirstSide, pointsSecondSide);
+         //else throw new PlayedMatchException("Game is already played");
     }
 
     @Override

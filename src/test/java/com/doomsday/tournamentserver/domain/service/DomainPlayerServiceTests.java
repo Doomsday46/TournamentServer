@@ -9,6 +9,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class DomainPlayerServiceTests {
 
@@ -23,8 +24,11 @@ public class DomainPlayerServiceTests {
         {
             testSubject = new DomainPlayerService();
             player1 = mock(Player.class);
+            when(player1.getNumber()).thenReturn(1);
             player2 = mock(Player.class);
+            when(player2.getNumber()).thenReturn(2);
             player3 = mock(Player.class);
+            when(player3.getNumber()).thenReturn(3);
             playerList = new ArrayList<>();
             playerList.add(player1);
             playerList.add(player2);
