@@ -7,11 +7,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class LocationViewInformationToLocationDomainMapper implements Mapper<Location, LocationViewInformation> {
 
-
     @Override
     public Location map(LocationViewInformation object) {
-
         var location = new Location(object.getName(), object.getDescription());
+        System.out.println("LocationViewInformationToLocationDomainMapper call");
         location.setBusy(object.isBase());
         return location;
     }
