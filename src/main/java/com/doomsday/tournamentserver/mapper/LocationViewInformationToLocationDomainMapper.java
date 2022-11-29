@@ -10,7 +10,7 @@ public class LocationViewInformationToLocationDomainMapper implements Mapper<Loc
     @Override
     public Location map(LocationViewInformation object) {
         var location = new Location(object.getName(), object.getDescription());
-        Log.console("call " + LocationViewInformationToLocationDomainMapper.class);
+        System.out.println("LocationViewInformationToLocationDomainMapper call");
         location.setBusy(object.isBase());
         return location;
     }
